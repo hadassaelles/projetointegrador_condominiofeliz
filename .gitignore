@@ -1,1 +1,7 @@
-arquivos_locais/
+*.venv/
+*__pycache__/
+*.pyc
+*out/
+*migrations/
+*.log
+
