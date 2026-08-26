@@ -1,13 +1,16 @@
-# TRABALHO DE PI:  Título do Trabalho
+# TRABALHO DE PI:  Condomínio Feliz
 Trabalho desenvolvido durante a disciplina de projeto Integrador
 
 # Sumário
 
 ### 1. COMPONENTES<br>
 Integrantes do grupo<br>
-primeiro_componente_do_grupo:email_primeiro_componente@dominio.com<br>
-segundo_componente_do_grupo:email_segundo_componente@dominio.com<br>
-...
+Ana Beatriz
+Ana Clara Vianna:
+Arthur 
+Hadassa Daulani Elles: hadaulles@gmail.com
+Isabelly Rodrigues Neves: 
+Pietro Mantovani:
 
  
 ### 2. Ideias Selecionadas, Matriz de selecao e OpportunityCard
