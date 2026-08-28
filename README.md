@@ -1,13 +1,15 @@
-# TRABALHO DE PI:  Título do Trabalho
+# TRABALHO DE PI:  Condomínio Feliz
 Trabalho desenvolvido durante a disciplina de projeto Integrador
 
 # Sumário
 
 ### 1. COMPONENTES<br>
-Integrantes do grupo<br>
-primeiro_componente_do_grupo:email_primeiro_componente@dominio.com<br>
-segundo_componente_do_grupo:email_segundo_componente@dominio.com<br>
-...
+Ana Beatriz Soares - anabeeas12@gmail.com <br>
+Ana Clara Vianna - anaclaravianna2005@gmail.com <br>
+Arthur de Oliveira Matias dos Santos - ao451427@gmail.com <br>
+Hadassa Daulani Elles - hadaulles@gmail.com <br>
+Isabelly Rodrigues Neves - isa.secund07@gmail.com <br>
+Pietro de Oliveira Mantovani - mantovanipietro05@gmail.com <br>
 
  
 ### 2. Ideias Selecionadas, Matriz de selecao e OpportunityCard
@@ -15,14 +17,13 @@ segundo_componente_do_grupo:email_segundo_componente@dominio.com<br>
 #### 2.1 Ideias Selecionadas pelo grupos
 Após realiza a Dinâmica Prática 5–5–5 (Problemas, soluções atuais e pessoas),  descreva as 2 principais ideias definidas pelo grupo .<br>
 
-<br> Ideia 1: 
-<br> Ideia 2: 
+<br> Ideia 1: Sistema de condomínio
+<br> Ideia 2: Rede social para cachorros
 
 
 #### 2.2 Matriz de seleção
 <img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/matrizSelecao.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/matrizSelecao.png" width="500" height="250" /> <br>
 
-<inclua os resultados obtidos pelo grupo na matriz de seleção>
 <br> Ideia 1: <título da ideia>
 <br> afinidade [ ], processo [ ], problema [ ], valor do software [ ], viabilidade [ ]
 <br> Nota final: [ ]
@@ -40,29 +41,36 @@ a) exemplo de oportunit card (observe que neste caso o grupo não incluiu o item
 <img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/opportunityCard.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/opportunityCard.png" width="500" height="330" /> <br>
 
 Descreva o que o foi definido pelo grupo para cada item abaixo referenta ao Opportunity Card da ideia selecioanda
-1. Área de afinidade/contexto
-2. Problema percebido
-3. Quem possui o problema
-4. Como é resolvido hoje
-5. Soluções semelhantes
-6. Lacuna inicial
-7. Pessoas acessíveis
-8. Hipótese de oportunidade
-9. Fomento/oportunidade
-10. Principal incerteza/desafio
+1. Área de afinidade/contexto - condominio
+2. Problema percebido - dificuldade para gerenciar as demandas
+3. Quem possui o problema - síndicos
+4. Como é resolvido hoje - planilhas e whatsapp
+5. Soluções semelhantes - 
+6. Lacuna inicial - 
+7. Pessoas acessíveis - um síndico e colegas do curso que moram em condomínios
+8. Hipótese de oportunidade - 
+9. Fomento/oportunidade - nenhum
+10. Principal incerteza/desafio - falta de tempo e não conseguir fazer o chat
 
 
 ### 3.MINIMUNDO<br>
-Descrever o mini-mundo! (Não deve ser maior do que 30 linhas, se necessário resumir para justar)
-Entrevista com o usuário e identificação dos requisitos.(quando for o caso de sistemas com cliente real)
-Descrição textual das regras de negócio definidas como um subconjunto do mundo real cujos elementos são propriedades que desejamos incluir, processar, armazenar, gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
+Um condomínio possui um ou mais blocos, e cada bloco possui diversas unidades (apartamentos ou casas), identificadas por número e vinculadas a um único bloco. Cada unidade tem um proprietário responsável e pode ter um ou mais moradores (podendo o proprietário ser um deles), com nome, CPF, telefone, e-mail e data de nascimento.
+O condomínio possui funcionários (manutenção, limpeza, portaria, administração), com matrícula, cargo, telefone e email.
+Moradores podem registrar ocorrências (manutenção, reclamações, sugestões ou denúncias), com data de abertura, descrição, categoria, status (aberta, em andamento ou concluída) e um funcionário responsável pelo atendimento.
+Há áreas comuns (salão de festas, churrasqueira, academia, piscina, quadra) reserváveis pelos moradores, com data, horário de início/término e status (confirmada, cancelada ou concluída).
+A administração envia comunicados aos moradores, com título, descrição, data de publicação e destino (todos ou um bloco específico).
+O sistema também controla visitantes, registrando nome, documento, horários de entrada/saída e unidade visitada, podendo a entrada ser autorizada previamente por um morador.
+Por fim, o administrador tem acesso completo, cadastrando moradores, funcionários, unidades, áreas comuns, reservas, ocorrências e comunicados
 <br>
 
-> <descrição>
 
 ### 4.  Validação da Ideia.<br>
 a) Link do formulário desenvolvido<br>
+https://forms.gle/xhYWbRj1YiUC2JkR9 <br>
 b) Link para Relatório/Apresentação de resultados obtidos<br>
+[Apresentação do formulário.pptx](https://github.com/user-attachments/files/31534415/Apresentacao.do.formulario.pptx)
+
+
 
 ### 4.Personas e Histórias de usuário<br>
 <img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/personas_academia.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/personas_academia.png" width="500" height="500" /> <br>
@@ -81,9 +89,8 @@ b) inclusão das Histórias de usuário desenvolvidas pelo grupo
 ### 5. PROTÓTIPOS DO SISTEMA<br>
 Neste ponto a codificação não e necessária, somente as ideias de telas devem ser desenvolvidas. O princípio aqui é pensar na criação da interface para identificar possíveis informações a serem armazenadas e/ou descartadas <br>
 
-Sugestão: https://balsamiq.com/products/mockups/<br>
+[prototipo.pdf](https://github.com/user-attachments/files/31534950/prototipo.pdf)
 
-![Alt text](https://github.com/discproint/template_projeto_integrador/blob/main/arquivos/balsamiq.png?raw=true "Title")
 
 
 #### 5.1 PROTÓTIPO DO SISTEMA MOBILE 
