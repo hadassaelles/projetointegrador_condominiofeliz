@@ -1,0 +1,6 @@
+Nome: Funcionário Teste | CPF: 11111111111 | E-mail: teste1@gmail.com | Telefone: 999999991 | Senha: 123456 | Tipo: Funcionário
+Nome: Morador Teste | CPF: 22222222222 | E-mail: teste2@gmail.com | Telefone: 999999992 | Senha: 123456 | Tipo: Morador
+Nome: Síndico Teste | CPF: 33333333333 | E-mail: teste3@gmail.com | Telefone: 999999993 | Senha: 123456 | Tipo: Síndico
+Nome: Pietro Mantovani | CPF: 15402557780 | E-mail: mantovanipietro05@gmail.com | Telefone: 27992646035 | Senha: 05032009 | Tipo: Morador
+Nome: Arthur de Oliveira | CPF: 11122233344 | E-mail: arthur@gmail.com | Telefone: 27998320551 | Senha: 123456 | Tipo: Funcionário
+Nome: Hadassa Daulani Elles | CPF: 11122233345 | E-mail: hadassadobd@gmail.com | Telefone: 27999999999 | Senha: 123456 | Tipo: Morador
