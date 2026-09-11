@@ -1,0 +1,125 @@
+CREATE TABLE pessoa (
+    id          SERIAL PRIMARY KEY,
+    nome        VARCHAR(100) NOT NULL,
+    sobrenome   VARCHAR(100) NOT NULL,
+    cpf         VARCHAR(14) UNIQUE NOT NULL,
+    email       VARCHAR(150) UNIQUE
+);
+
+CREATE TABLE telefone (
+    id_telefone SERIAL PRIMARY KEY,
+    id_pessoa   INTEGER NOT NULL,
+    tipo        VARCHAR(30),
+    numero      VARCHAR(20) NOT NULL,
+
+    CONSTRAINT fk_telefone_pessoa
+        FOREIGN KEY (id_pessoa)
+        REFERENCES pessoa(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE apartamento (
+    id               SERIAL PRIMARY KEY,
+    numero           INTEGER NOT NULL UNIQUE,
+    id_proprietario  INTEGER,
+    id_sindico       INTEGER,
+
+    CONSTRAINT fk_apartamento_proprietario
+        FOREIGN KEY (id_proprietario)
+        REFERENCES pessoa(id),
+
+    CONSTRAINT fk_apartamento_sindico
+        FOREIGN KEY (id_sindico)
+        REFERENCES pessoa(id)
+);
+
+CREATE TABLE morador (
+    id_pessoa       INTEGER PRIMARY KEY,
+    id_apartamento  INTEGER NOT NULL,
+
+    CONSTRAINT fk_morador_pessoa
+        FOREIGN KEY (id_pessoa)
+        REFERENCES pessoa(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_morador_apartamento
+        FOREIGN KEY (id_apartamento)
+        REFERENCES apartamento(id)
+);
+
+CREATE TABLE sindico (
+    id_pessoa INTEGER PRIMARY KEY,
+
+    CONSTRAINT fk_sindico_pessoa
+        FOREIGN KEY (id_pessoa)
+        REFERENCES pessoa(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE funcionario (
+    id_pessoa INTEGER PRIMARY KEY,
+    cargo     VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_funcionario_pessoa
+        FOREIGN KEY (id_pessoa)
+        REFERENCES pessoa(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE reserva (
+    id_reserva       SERIAL PRIMARY KEY,
+    id_responsavel   INTEGER NOT NULL,
+    data             DATE NOT NULL,
+    hora_inicio TIME NOT NULL,
+	hora_fim TIME NOT null,
+    local            VARCHAR(150) NOT NULL,
+    quant_pessoas    INTEGER,
+
+    CONSTRAINT fk_reserva_responsavel
+        FOREIGN KEY (id_responsavel)
+        REFERENCES pessoa(id)
+);
+
+CREATE TABLE convidados (
+    id_convidado SERIAL PRIMARY KEY,
+    id_reserva   INTEGER NOT null,
+    nome         VARCHAR(150) NOT NULL,
+
+    CONSTRAINT fk_convidado_reserva
+        FOREIGN KEY (id_reserva)
+        REFERENCES reserva(id_reserva)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE encomenda (
+    id_encomenda   SERIAL PRIMARY KEY,
+    id_funcionario INTEGER NOT NULL,
+    id_apartamento INTEGER NOT NULL,
+
+    CONSTRAINT fk_encomenda_funcionario
+        FOREIGN KEY (id_funcionario)
+        REFERENCES funcionario(id_pessoa),
+
+    CONSTRAINT fk_encomenda_apartamento
+        FOREIGN KEY (id_apartamento)
+        REFERENCES apartamento(id)
+);
+
+
+CREATE TABLE mensagem (
+    id_mensagem  SERIAL PRIMARY KEY,
+    id_emissor   INTEGER NOT NULL,
+    id_receptor  INTEGER NOT NULL,
+    tipo         VARCHAR(30),
+    texto        TEXT,
+    imagem       TEXT,
+    situacao     VARCHAR(20),
+
+    CONSTRAINT fk_mensagem_emissor
+        FOREIGN KEY (id_emissor)
+        REFERENCES pessoa(id),
+
+    CONSTRAINT fk_mensagem_receptor
+        FOREIGN KEY (id_receptor)
+        REFERENCES pessoa(id)
+);
