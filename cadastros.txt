@@ -1,0 +1,7 @@
+Nome: Funcionário Teste | CPF: 11111111111 | E-mail: teste1@gmail.com | Telefone: 999999991 | Senha: 123456 | Tipo: Funcionário
+Nome: Morador Teste | CPF: 22222222222 | E-mail: teste2@gmail.com | Telefone: 999999992 | Senha: 123456 | Tipo: Morador
+Nome: Síndico Teste | CPF: 33333333333 | E-mail: teste3@gmail.com | Telefone: 999999993 | Senha: 123456 | Tipo: Síndico
+Nome: Pietro Mantovani | CPF: 15402557780 | E-mail: mantovanipietro05@gmail.com | Telefone: 27992646035 | Senha: 05032009 | Tipo: Morador
+Nome: Arthur de Oliveira | CPF: 11122233344 | E-mail: arthur@gmail.com | Telefone: 27998320551 | Senha: 123456 | Tipo: Funcionário
+Nome: Jacinto Akilin don | CPF: 11122233340 | E-mail: jacintingamer@gmail.com | Telefone: 2799999999 | Senha: 123456 | Tipo: Morador
+Nome: tutu | E-mail: 123456@gmail.com | CPF: 22310376701 | Senha: 20f645c703944a0027acf6fad92ec465247842450605c5406b50676ff0dcd5ea | Tipo: Morador | Condicao: Proprietário | Unidade: Bloco A - Apto 450
