@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS mensagem CASCADE;
+DROP TABLE IF EXISTS encomenda CASCADE;
+DROP TABLE IF EXISTS convidados CASCADE;
+DROP TABLE IF EXISTS reserva CASCADE;
+DROP TABLE IF EXISTS funcionario CASCADE;
+DROP TABLE IF EXISTS sindico CASCADE;
+DROP TABLE IF EXISTS morador CASCADE;
+DROP TABLE IF EXISTS apartamento CASCADE;
+DROP TABLE IF EXISTS telefone CASCADE;
+DROP TABLE IF EXISTS pessoa CASCADE;
+
+
 CREATE TABLE pessoa (
     id          SERIAL PRIMARY KEY,
     nome        VARCHAR(100) NOT NULL,
@@ -70,8 +82,8 @@ CREATE TABLE reserva (
     id_reserva       SERIAL PRIMARY KEY,
     id_responsavel   INTEGER NOT NULL,
     data             DATE NOT NULL,
-    hora_inicio TIME NOT NULL,
-	hora_fim TIME NOT null,
+    hora_inicio      TIME NOT NULL,
+    hora_fim         TIME NOT NULL,
     local            VARCHAR(150) NOT NULL,
     quant_pessoas    INTEGER,
 
@@ -82,7 +94,7 @@ CREATE TABLE reserva (
 
 CREATE TABLE convidados (
     id_convidado SERIAL PRIMARY KEY,
-    id_reserva   INTEGER NOT null,
+    id_reserva   INTEGER NOT NULL,
     nome         VARCHAR(150) NOT NULL,
 
     CONSTRAINT fk_convidado_reserva
@@ -104,7 +116,6 @@ CREATE TABLE encomenda (
         FOREIGN KEY (id_apartamento)
         REFERENCES apartamento(id)
 );
-
 
 CREATE TABLE mensagem (
     id_mensagem  SERIAL PRIMARY KEY,
