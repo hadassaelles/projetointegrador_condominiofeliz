@@ -4,12 +4,10 @@ Trabalho desenvolvido durante a disciplina de projeto Integrador
 # Sumário
 
 ### 1. COMPONENTES<br>
-Ana Beatriz Soares - anabeeas12@gmail.com <br>
-Ana Clara Vianna - anaclaravianna2005@gmail.com <br>
-Arthur de Oliveira Matias dos Santos - ao451427@gmail.com <br>
-Hadassa Daulani Elles - hadaulles@gmail.com <br>
-Isabelly Rodrigues Neves - isa.secund07@gmail.com <br>
-Pietro de Oliveira Mantovani - mantovanipietro05@gmail.com <br>
+Integrantes do grupo<br>
+primeiro_componente_do_grupo:email_primeiro_componente@dominio.com<br>
+segundo_componente_do_grupo:email_segundo_componente@dominio.com<br>
+...
 
  
 ### 2. Ideias Selecionadas, Matriz de selecao e OpportunityCard
