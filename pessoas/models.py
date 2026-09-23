@@ -40,7 +40,7 @@ class Sindico(Pessoa):
 
 class Funcionario(Pessoa):
     cargo = models.CharField(max_length=100)
-    sindico = models.ForeignKey(
+    sindico_responsavel = models.ForeignKey(
         Sindico,
         on_delete=models.SET_NULL,
         null=True,

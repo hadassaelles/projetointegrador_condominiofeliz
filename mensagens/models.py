@@ -5,13 +5,13 @@ class Mensagem(models.Model):
     id_mensagem = models.AutoField(primary_key=True)
 
     remetente = models.ForeignKey(
-        'pessoa.Pessoa',
+        'pessoas.Pessoa',
         on_delete=models.CASCADE,
         related_name='mensagens_enviadas'
     )
 
     destinatario = models.ForeignKey(
-        'pessoa.Pessoa',
+        'pessoas.Pessoa',
         on_delete=models.CASCADE,
         related_name='mensagens_recebidas'
     )

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Condomínio Feliz</title>
-    <link rel="stylesheet" href="loginGeral.css">
     
 </head>
 <body>
@@ -14,8 +13,8 @@
 
        <form method="post">
             {% csrf_token %}
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="username" placeholder="seu@email.com">
+            <label for="email">Login</label>
+            <input type="text" id="email" name="username" placeholder="seu usuário">
 
             <label for="senha">Senha</label>
             <input type="password" id="senha" name="password" placeholder="Digite sua senha">
