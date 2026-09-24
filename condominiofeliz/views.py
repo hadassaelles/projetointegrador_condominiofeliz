@@ -17,3 +17,7 @@ def home(request):
         return render(request, 'homeFuncionario.html')
     else:
         return redirect('login')
+
+@login_required
+def ocorrencia_morador(request):
+    return render(request, 'ocorrenciaMorador.html')

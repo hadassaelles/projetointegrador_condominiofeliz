@@ -1,0 +1,150 @@
+<!--{% load static %}-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocorrências | Morador</title>
+    <!--   <link rel="stylesheet" href="{% static 'ocorrenciaMorador.css' %}">    -->
+
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🏢</div>
+      <div class="brand-text">
+        <strong>Condomínio Feliz</strong>
+        <span>Ocorrências</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="homeMorador.html" class="nav-item">
+        <span class="nav-icon">▦</span> Dashboard
+      </a>
+      <a href="ocorrenciasMorador.html" class="nav-item active">
+        <span class="nav-icon">⚠</span> Ocorrências
+      </a>
+      <a href="reservasMorador.html" class="nav-item">
+        <span class="nav-icon">▤</span> Reservas
+      </a>
+      <a href="comunicadosMorador.html" class="nav-item">
+        <span class="nav-icon">📣</span> Comunicados
+      </a>
+    </nav>
+
+    <div class="user-card">
+      <strong>Nome do morador</strong>
+      <span>Morador</span>
+      <button class="logout-btn">⏻ Sair</button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <header class="page-header">
+      <div>
+        <h1>Ocorrências</h1>
+        <p>Chamados abertos por moradores</p>
+      </div>
+      <button href="abrirOcorrenciaMorador.html" class="btn-primary">+ Abrir ocorrência</button>
+    </header>
+
+    <!-- Summary cards -->
+    <section class="summary-cards">
+      <div class="card card-highlight">
+        <span class="card-label">Abertas</span>
+        <span class="card-value">1</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Em andamento</span>
+        <span class="card-value">2</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Resolvidas</span>
+        <span class="card-value">2</span>
+      </div>
+    </section>
+
+    <!-- Filter tabs -->
+    <div class="filters">
+      <button class="filter-tab active">Todas</button>
+      <button class="filter-tab">Manutenção</button>
+      <button class="filter-tab">Reclamação</button>
+      <button class="filter-tab">Sugestão</button>
+      <button class="filter-tab">Denúncia</button>
+    </div>
+
+    <!-- Table -->
+    <section class="table-card">
+      <h2 class="table-title">Ocorrências (5)</h2>
+
+      <table class="occurrences-table">
+        <thead>
+          <tr>
+            <th>Ocorrência</th>
+            <th>Categoria</th>
+            <th>Unidade / Morador</th>
+            <th>Responsável</th>
+            <th>Data</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Vazamento na garagem</strong>
+              <span class="row-desc">Infiltração próxima à vaga 24 do subsolo.</span>
+            </td>
+            <td>Manutenção</td>
+            <td>101 · Bloco A<br><span class="muted">Ana Beatriz Souza</span></td>
+            <td>João Pereira</td>
+            <td>05/08/2026</td>
+            <td><span class="status status-progress">Em andamento</span></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Barulho após 22h</strong>
+              <span class="row-desc">Som alto vindo do apartamento vizinho durante a madrugada.</span>
+            </td>
+            <td>Reclamação</td>
+            <td>302 · Bloco B<br><span class="muted">Rafael Nogueira</span></td>
+            <td class="unassigned">Não atribuído</td>
+            <td>04/08/2026</td>
+            <td><span class="status status-open">Aberta</span></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Lixeiras extras no hall</strong>
+              <span class="row-desc">Sugestão de instalar coleta seletiva por andar.</span>
+            </td>
+            <td>Sugestão</td>
+            <td>405 · Bloco B<br><span class="muted">Pedro Almeida</span></td>
+            <td>Renata Dias</td>
+            <td>01/08/2026</td>
+            <td><span class="status status-resolved">Resolvida</span></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Uso irregular da piscina</strong>
+            </td>
+            <td>Denúncia</td>
+            <td>203 · Bloco C</td>
+            <td>Marcos</td>
+            <td>29/07/2026</td>
+            <td><span class="status status-progress">Em andamento</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+    
+</body>
+</html>
