@@ -1,11 +1,11 @@
-<!--{% load static %}-->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocorrências | Morador</title>
-    <!--   <link rel="stylesheet" href="{% static 'ocorrenciaMorador.css' %}">    -->
+    <link rel="stylesheet" href="{% static 'ocorrenciaMorador.css' %}">
 
 </head>
 <body>
@@ -40,7 +40,10 @@
     <div class="user-card">
       <strong>Nome do morador</strong>
       <span>Morador</span>
-      <button class="logout-btn">⏻ Sair</button>
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">⏻ Sair</button>
+      </form>
     </div>
   </aside>
 
@@ -52,7 +55,7 @@
         <h1>Ocorrências</h1>
         <p>Chamados abertos por moradores</p>
       </div>
-      <button href="abrirOcorrenciaMorador.html" class="btn-primary">+ Abrir ocorrência</button>
+      <a href="{% url 'abrir_ocorrencia' %}" class="btn-primary">+ Abrir ocorrência</a>
     </header>
 
     <!-- Summary cards -->

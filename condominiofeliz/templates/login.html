@@ -15,6 +15,10 @@
 
        <form method="post">
             {% csrf_token %}
+            {% if form.errors %}
+                <p class="erro-login">Usuário ou senha incorretos.</p>
+            {% endif %}
+            
             <label for="email">Login</label>
             <input type="text" id="email" name="username" placeholder="seu usuário">
 

@@ -97,3 +97,8 @@ button {
     color: #2563eb;
     text-decoration: none;
 }
+
+.erro-login {
+    color: #e63946;
+    margin-bottom: 12px;
+}

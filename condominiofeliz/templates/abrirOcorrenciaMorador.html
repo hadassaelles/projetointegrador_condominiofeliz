@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abrir ocorrência</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'abrirOcorrencia.css' %}">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="marca">
+      <div class="marca-icone"></div>
+      <div>
+        <strong>Condomínio Feliz</strong>
+        <span>Ocorrências</span>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="#">Dashboard</a>
+      <a href="{% url 'ocorrencia_morador' %}" class="ativo">Ocorrências</a>
+      <a href="#">Reservas</a>
+      <a href="#">Comunicados</a>
+    </nav>
+  </aside>
+
+  <main class="conteudo">
+    <header class="topo">
+      <a href="{% url 'ocorrencia_morador' %}" class="voltar">← Voltar para ocorrências</a>
+      <h1>Abrir ocorrência</h1>
+      <p>Conte o que aconteceu para que a administração possa resolver.</p>
+    </header>
+
+      <form class="form-card" action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h2>Dados da ocorrência</h2>
+
+      <fieldset class="campo">
+        <legend>Categoria</legend>
+        <div class="chips">
+          <input type="radio" name="categoria" id="cat-manutencao" value="manutencao" checked>
+          <label for="cat-manutencao">Manutenção</label>
+
+          <input type="radio" name="categoria" id="cat-reclamacao" value="reclamacao">
+          <label for="cat-reclamacao">Reclamação</label>
+
+          <input type="radio" name="categoria" id="cat-sugestao" value="sugestao">
+          <label for="cat-sugestao">Sugestão</label>
+
+          <input type="radio" name="categoria" id="cat-denuncia" value="denuncia">
+          <label for="cat-denuncia">Denúncia</label>
+        </div>
+      </fieldset>
+
+      <div class="campo">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" maxlength="80" placeholder="Ex.: Vazamento na garagem" required>
+      </div>
+
+      <div class="campo">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" placeholder="Descreva o problema, o local e desde quando ele acontece." required></textarea>
+      </div>
+
+      <div class="linha">
+        <div class="campo">
+          <label for="unidade">Unidade</label>
+          <input type="text" id="unidade" name="unidade" placeholder="Ex.: 101" required>
+        </div>
+        <div class="campo">
+          <label for="bloco">Bloco</label>
+          <select id="bloco" name="bloco" required>
+            <option value="" disabled selected>Selecione o bloco</option>
+            <option>Bloco A</option>
+            <option>Bloco B</option>
+            <option>Bloco C</option>
+            <option>Áreas comuns</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="morador">Morador</label>
+        <input type="text" id="morador" name="morador" placeholder="Seu nome completo" required>
+      </div>
+
+      <div class="campo">
+        <label for="fotos">Fotos <small>(opcional)</small></label>
+        <label class="anexo" for="fotos">
+          <strong>Escolher arquivos</strong>
+          <span>PNG ou JPG, até 5 MB cada</span>
+          <input type="file" id="fotos" name="fotos" accept="image/png, image/jpeg" multiple>
+        </label>
+      </div>
+
+      <div class="acoes">
+        <a href="{% url 'ocorrencia_morador'}" class="btn btn-secundario">Cancelar</a>
+        <button type="submit" class="btn btn-primario">Enviar ocorrência</button>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>
+
