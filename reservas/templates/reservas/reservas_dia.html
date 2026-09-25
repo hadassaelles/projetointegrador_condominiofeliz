@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Reservas do Dia</title></head>
+<body>
+    <h1>Reservas de Hoje ({{ hoje|date:"d/m/Y" }})</h1>
+    {% for r in reservas %}
+        <p>
+            <strong>Área:</strong> {{ r.area.nome }}<br>
+            <strong>Horário:</strong> {{ r.hora_inicio|time:"H:i" }} – {{ r.hora_fim|time:"H:i" }}<br>
+            <strong>Morador:</strong> {{ r.morador.get_full_name|default:r.morador.username }} ({{ r.unidade }})
+        </p>
+        <hr>
+    {% empty %}
+        <p>Nenhuma reserva para hoje.</p>
+    {% endfor %}
+</body>
+</html>
