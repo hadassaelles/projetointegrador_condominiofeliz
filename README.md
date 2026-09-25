@@ -1,143 +1,305 @@
-# TRABALHO DE PI:  Condomínio Feliz
-Trabalho desenvolvido durante a disciplina de projeto Integrador
+# TRABALHO DE PI: Condomínio Feliz
+Trabalho desenvolvido durante a disciplina de Projeto Integrador
 
-# Sumário
+### 1. COMPONENTES
+- Ana Beatriz Soares - anabeeas12@gmail.com  
+- Ana Clara Vianna - anaclaravianna2005@gmail.com  
+- Arthur de Oliveira Matias dos Santos - ao451427@gmail.com  
+- Hadassa Daulani Elles - hadaulles@gmail.com  
+- Isabelly Rodrigues Neves - isa.secund07@gmail.com  
+- Pietro de Oliveira Mantovani - mantovanipietro05@gmail.com  
 
-### 1. COMPONENTES<br>
-Ana Beatriz Soares - anabeeas12@gmail.com <br>
-Ana Clara Vianna - anaclaravianna2005@gmail.com <br>
-Arthur de Oliveira Matias dos Santos - ao451427@gmail.com <br>
-Hadassa Daulani Elles - hadaulles@gmail.com <br>
-Isabelly Rodrigues Neves - isa.secund07@gmail.com <br>
-Pietro de Oliveira Mantovani - mantovanipietro05@gmail.com <br>
+---
 
- 
-### 2. Ideias Selecionadas, Matriz de selecao e OpportunityCard
+### 2. Ideias Selecionadas, Matriz de Seleção e Opportunity Card
 
-#### 2.1 Ideias Selecionadas pelo grupos
-Após realiza a Dinâmica Prática 5–5–5 (Problemas, soluções atuais e pessoas),  descreva as 2 principais ideias definidas pelo grupo .<br>
+#### 2.1 Ideias geradas pelo grupo (uma por integrante)
 
-<br> Ideia 1: Sistema de condomínio
-<br> Ideia 2: Rede social para cachorros
+Após a Dinâmica Prática 5-5-5, cada membro do grupo apresentou uma ideia:
 
+- **Ana Beatriz**: Aplicativo de controle de gastos compartilhados entre amigos e roommates  
+- **Ana Clara**: Sistema de agendamento e organização de grupos de estudo  
+- **Arthur**: Rede social para donos de cachorros  
+- **Hadassa**: Sistema de gestão de condomínio  
+- **Isabelly**: Plataforma de empréstimo e troca de materiais escolares entre alunos  
+- **Pietro**: Aplicativo de caronas solidárias entre estudantes  
 
-#### 2.2 Matriz de seleção
-<img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/matrizSelecao.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/matrizSelecao.png" width="500" height="250" /> <br>
+#### 2.2 Matriz de Seleção (critérios oficiais – 0 a 2 pontos cada | máximo 10 pontos)
 
-<br> Ideia 1: <título da ideia>
-<br> afinidade [ ], processo [ ], problema [ ], valor do software [ ], viabilidade [ ]
-<br> Nota final: [ ]
+| Critério                              | Ana Beatriz<br>Gastos Compartilhados | Ana Clara<br>Grupos de Estudo | Arthur<br>Rede Social Cachorros | **Hadassa**<br>**Sistema de Condomínio** | Isabelly<br>Empréstimo Materiais | Pietro<br>Caronas Solidárias |
+|---------------------------------------|--------------------------------------|-------------------------------|----------------------------------|------------------------------------------|----------------------------------|------------------------------|
+| **Afinidade** (quero trabalhar nisso?) | 1                                    | 2                             | 1                                | **2**                                    | 1                                | 2                            |
+| **Acesso** (consigo falar com usuários?) | 2                                  | 2                             | 1                                | **2**                                    | 2                                | 2                            |
+| **Problema** (incomoda alguém de fato?) | 1                                   | 1                             | 1                                | **2**                                    | 1                                | 1                            |
+| **Software** (software gera valor real?) | 2                                  | 2                             | 1                                | **2**                                    | 1                                | 1                            |
+| **Viabilidade** (dá para MVP em ~60h?) | 2                                   | 2                             | 1                                | **2**                                    | 1                                | 1                            |
+| **Nota Final**                        | **8**                                | **9**                         | **5**                            | **10**                                   | **6**                            | **7**                        |
 
-<br> Ideia 2: <título da ideia>
-<br>afinidade [ ], processo [ ], problema [ ], valor do software [ ], viabilidade [ ]
-<br> Nota final: [ ]
+**Resultado da Seleção**  
+A ideia escolhida pelo grupo foi a da **Hadassa – Sistema de Gestão de Condomínio**, que obteve a pontuação máxima (**10 pontos**).
 
+**Justificativa da escolha:**
+- Maior afinidade do grupo com o tema (proposta original da Hadassa e identificação coletiva).
+- Fácil acesso a usuários reais (síndico conhecido + colegas do curso que moram em condomínio).
+- Problema real e recorrente: gestão desorganizada via WhatsApp e planilhas.
+- Software gera valor claro e mensurável para síndicos e moradores.
+- Alta viabilidade para desenvolver um MVP no tempo da disciplina.
 
+#### 2.3 Opportunity Card da ideia selecionada
 
-#### 2.3. Opportunity Card da ideia selecioanda
+1. **Área de afinidade/contexto**  
+   Gestão de condomínios residenciais (pequenos e médios). Interesse do grupo em resolver problemas reais do dia a dia de síndicos e moradores.
 
-a) exemplo de oportunit card (observe que neste caso o grupo não incluiu o item 5 e portante precisaria justificar o porque não foi realizado).
+2. **Problema percebido**  
+   Dificuldade de gerenciar demandas do condomínio de forma organizada (ocorrências, reservas de áreas comuns, visitantes e comunicados). Tudo acaba sendo feito de forma improvisada.
 
-<img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/opportunityCard.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/opportunityCard.png" width="500" height="330" /> <br>
+3. **Quem possui o problema**  
+   Síndicos (principalmente de condomínios pequenos e médios) e, em segundo plano, os moradores.
 
-Descreva o que o foi definido pelo grupo para cada item abaixo referenta ao Opportunity Card da ideia selecioanda
-1. Área de afinidade/contexto - condominio
-2. Problema percebido - dificuldade para gerenciar as demandas
-3. Quem possui o problema - síndicos
-4. Como é resolvido hoje - planilhas e whatsapp
-5. Soluções semelhantes - 
-6. Lacuna inicial - 
-7. Pessoas acessíveis - um síndico e colegas do curso que moram em condomínios
-8. Hipótese de oportunidade - 
-9. Fomento/oportunidade - nenhum
-10. Principal incerteza/desafio - falta de tempo e não conseguir fazer o chat
+4. **Como é resolvido hoje**  
+   Planilhas no Excel + grupos de WhatsApp. Algumas vezes cadernos ou anotações manuais. Não existe histórico confiável nem controle de status.
 
+5. **Soluções semelhantes**  
+   Softwares profissionais de gestão condominial (ex: Superlógica, Condor, TownSq). São caros, complexos e pouco acessíveis para condomínios menores.
 
-### 3.MINIMUNDO<br>
+6. **Lacuna inicial**  
+   Falta de uma solução simples, barata (ou gratuita no início) e fácil de usar, focada especificamente em condomínios pequenos/médios, com versão mobile + web.
+
+7. **Pessoas acessíveis**  
+   - 1 síndico conhecido  
+   - Colegas do curso que moram em condomínio  
+   - Possibilidade de conversar com porteiros e moradores
+
+8. **Hipótese de oportunidade**  
+   “Acreditamos que síndicos de condomínios pequenos e médios perdem tempo significativo e sofrem com falhas de comunicação ao gerenciar ocorrências, reservas e visitantes apenas com WhatsApp e planilhas. Precisamos investigar se uma solução digital simples seria adotada e se resolve de fato a dor.”
+
+9. **Fomento/oportunidade**  
+   Nenhum edital específico identificado no momento.  
+   *(Justificativa: projeto acadêmico. Caso surja oportunidade de fomento depois, será avaliado.)*
+
+10. **Principal incerteza/desafio**  
+    - Validar se os síndicos realmente sentem a dor com intensidade suficiente  
+    - Conseguir engajamento dos usuários para testar o MVP  
+    - Limitação de tempo da equipe para desenvolver funcionalidades mais complexas
+
+---
+
+### 3. MINIMUNDO
+
 Um condomínio possui um ou mais blocos, e cada bloco possui diversas unidades (apartamentos ou casas), identificadas por número e vinculadas a um único bloco. Cada unidade tem um proprietário responsável e pode ter um ou mais moradores (podendo o proprietário ser um deles), com nome, CPF, telefone, e-mail e data de nascimento.
+
 O condomínio possui funcionários (manutenção, limpeza, portaria, administração), com matrícula, cargo, telefone e email.
+
 Moradores podem registrar ocorrências (manutenção, reclamações, sugestões ou denúncias), com data de abertura, descrição, categoria, status (aberta, em andamento ou concluída) e um funcionário responsável pelo atendimento.
+
 Há áreas comuns (salão de festas, churrasqueira, academia, piscina, quadra) reserváveis pelos moradores, com data, horário de início/término e status (confirmada, cancelada ou concluída).
+
+Mensalmente são geradas taxas condominiais por unidade, com valor, vencimento, data de pagamento, status (paga/pendente) e possíveis multas ou juros por atraso.
+
 A administração envia comunicados aos moradores, com título, descrição, data de publicação e destino (todos ou um bloco específico).
+
 O sistema também controla visitantes, registrando nome, documento, horários de entrada/saída e unidade visitada, podendo a entrada ser autorizada previamente por um morador.
-Por fim, o administrador tem acesso completo, cadastrando moradores, funcionários, unidades, áreas comuns, reservas, ocorrências e comunicados
-<br>
 
+Por fim, o administrador tem acesso completo, cadastrando moradores, funcionários, unidades, áreas comuns, reservas, ocorrências e comunicados, além de acompanhar os pagamentos das taxas.
 
-### 4.  Validação da Ideia.<br>
-a) Link do formulário desenvolvido<br>
-https://forms.gle/xhYWbRj1YiUC2JkR9 <br>
-b) Link para Relatório/Apresentação de resultados obtidos<br>
+---
+
+### 4. Validação da Ideia
+
+a) Link do formulário desenvolvido:  
+https://forms.gle/xhYWbRj1YiUC2JkR9  
+
+b) Link para Relatório/Apresentação de resultados obtidos:  
 [Apresentação do formulário.pptx](https://github.com/user-attachments/files/31534415/Apresentacao.do.formulario.pptx)
 
+---
 
+### 4.1 Digital Investigation Card
 
-### 4.Personas e Histórias de usuário<br>
-<img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/personas_academia.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/personas_academia.png" width="500" height="500" /> <br>
+**O que aprendemos com o público?**  
+**O que aprendemos que não sabíamos antes de entrevistar o público-alvo?**
 
+![Digital Investigation Card](./imagens/digital_investigation_card.jpg)
 
-a) inclusão dos Persons desenvolvidos pelo grupo<br>
-<br>
+**Pitch das Evidências:**  
+Realizamos pesquisa via Google Forms com 2 alunos do IFES que têm experiência em condomínios. Identificamos dificuldade de gerenciamento e acesso a informações.  
+**Principal descoberta:** usuários têm dificuldade em localizar e organizar informações de forma rápida e clara.  
+**Descoberta inesperada:** o tamanho dos botões impacta a usabilidade.  
+**Dúvida restante:** como a solução se comportará em condomínios de portes diferentes.
 
+---
 
+### 5. Personas e Histórias de Usuário
 
-<img src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/us_academia.png" Personas src="https://raw.githubusercontent.com/templatetrab/template_projeto_integrador/refs/heads/main/arquivos/us_academia.png" width="500" height="230" /> <br>
+#### 5.1 Personas
 
-b) inclusão das Histórias de usuário desenvolvidas pelo grupo
-<br>
+**Persona 1 – Maria, 40 anos (Moradora)**  
+- Moradora do condomínio  
+- Especialidade: participação na comunidade  
+- Foco: comunicação e interação entre moradores  
+- Avalia o sistema por: app de fácil acesso, comunicados sempre atualizados, administração eficiente  
+- Pontos de atenção: interface simples e maior fluidez ao navegar  
+- Não quer: app complexo e muitas informações irrelevantes  
 
-### 5. PROTÓTIPOS DO SISTEMA<br>
-Neste ponto a codificação não e necessária, somente as ideias de telas devem ser desenvolvidas. O princípio aqui é pensar na criação da interface para identificar possíveis informações a serem armazenadas e/ou descartadas <br>
+**Persona 2 – Ricardo, 53 anos (Síndico)**  
+- Síndico do condomínio  
+- Especialidade: gestão e administração  
+- Foco: manter o condomínio organizado e seguro  
+- Avalia o sistema por: facilidade em administrar o app e organizar reservas  
+- Pontos de atenção: eficácia e facilidade em administrar o condomínio  
+- Não quer: dificuldade em entender a interface  
 
-[prototipo.pdf](https://github.com/user-attachments/files/31534950/prototipo.pdf)
+**Persona 3 – Paulo, 34 anos (Funcionário)**  
+- Funcionário do condomínio (manutenção)  
+- Especialidade: manutenção e conservação  
+- Foco: organização e segurança  
+- Avalia o sistema por: praticidade e organização das informações e ocorrências  
+- Pontos de atenção: fluidez ao navegar e receber avisos rapidamente  
+- Não quer: app complexo e funcionalidades desnecessárias  
 
+#### 5.2 Histórias de Usuário
 
+- Como **morador**, eu quero praticidade em receber os comunicados do condomínio para me manter informado sobre os eventos e mudanças importantes.  
+- Como **síndico**, eu quero facilidade em administrar o condomínio para divulgar os comunicados.  
+- Como **funcionário**, eu quero eficiência em receber as tarefas do dia para organizar minha rotina.  
+- Como **morador**, eu quero registrar ocorrências pelo aplicativo para informar problemas de forma rápida e eficaz.  
+- Como **síndico**, eu quero gerenciar as reservas das áreas de lazer e dos visitantes para evitar conflitos de horários.  
+- Como **funcionário**, eu quero enviar atualizações sobre os serviços realizados para facilitar o acompanhamento pelo síndico.
 
-#### 5.1 PROTÓTIPO DO SISTEMA MOBILE 
+---
 
-#### 5.2 PROTÓTIPO DO SISTEMA WEB
+### 6. PROTÓTIPOS DO SISTEMA
 
-#### 5.3 QUAIS PERGUNTAS PODEM SER RESPONDIDAS COM OS SISTEMA WEB/MOBILE PROPOSTOS?
-    a) O sistema proposto poderá fornecer quais tipos de relatórios e informaçes? 
-    b) Crie uma lista com os 5 principais relatórios que poderão ser obtidos por meio do sistema proposto!
-    
-> A Empresa DevCom precisa inicialmente dos seguintes relatórios:
-* Relatório que informe quais são os gerentes de cada departamento incluindo as seguintes informações: número do departamento,  nome do departamento, e nome do gerente.
-* Relatório de empregados por projeto incluindo as seguintes informações: número do projeto, nome do projeto, rg do empregado, nome do empregado e quantidade de horas de trabalho do empregado alocadas ao projeto.
-* Relatório de empregados com dependentes incluindo as seguintes informações: rg do empregado, nome do empregado, nome do dependente, tipo de relação, data de nascimento do dependente e sexo do dependente.
-* Relatório com a quantidade de empregados por cada departamento incluindo as seguintes informações: nome do departamento, supervisor e quantidade de empregados alocados no departamento.
-* Relatório de supervisores e supervisionados incluindo as seguintes informações: nome do supervisor e nome do supervisionado.
- 
- ### 6.MODELO CONCEITUAL<br>
-    A) Utilizar a Notação adequada (Preferencialmente utilizar o BR Modelo 3)
-    B) O mínimo de entidades do modelo conceitual pare este trabalho será igual a 4.
-        * informe quais são as 3 principais entidades do sistema em densenvolvimento
-      (se houverem mais de 3 entidades, pense na importância da entidade para o sistema)       
-    C) Principais fluxos de informação/entidades do sistema (mínimo 2). <br>Dica: normalmente estes fluxos estão associados as tabelas que conterão maior quantidade de dados 
-    D) Qualidade e Clareza
-        Garantir que a semântica dos atributos seja clara no esquema (nomes coerentes com os dados).
-        Criar o esquema de forma a garantir a redução de informação redundante, possibilidade de valores null, 
-        e tuplas falsas (Aplicar os conceitos de normalização abordados).   
-        
-![Alt text](https://github.com/discproint/template_projeto_integrador/blob/main/arquivos/concept_sample.png?raw=true "Modelo Conceitual")
-      
-    
-#### 7 Descrição dos dados 
-    [objeto]: [descrição do objeto]
-    
-    EXEMPLO:
-    CLIENTE: Tabela que armazena as informações relativas ao cliente<br>
-    CPF: campo que armazena o número de Cadastro de Pessoa Física para cada cliente da empresa.<br>
+O protótipo do sistema (versão web) está disponível no arquivo:  
+**prototipo.pdf**
 
+Principais telas desenvolvidas (visão do Síndico/Administrador):
+- Login com seleção de perfil (Administrador, Morador, Funcionário/Portaria)
+- Dashboard com resumo (ocorrências abertas, moradores, reservas, comunicados)
+- Gestão de Blocos e Unidades
+- Gestão de Moradores
+- Gestão de Funcionários
+- Gestão de Ocorrências
+- Gestão de Reservas de Áreas Comuns
+- Gestão de Comunicados
+- Controle de Visitantes
 
+---
 
-### 8	RASTREABILIDADE DOS ARTEFATOS<br>
-        a) Historia de usuários vs protótipo (Histórias de Usuário e em qual tela do protótipo aquela HU está sendo realizada).
-        b) Protótipo vs Modelo conceitual (Histórias de Usuário e em quais tabelas aquele dado está sendo registrado).
-        (modelos devem obrigatoriamente estar em conformidade de rastreabilidade)
+### 7. MODELO CONCEITUAL
 
+O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacionamento (BR Modelo).
 
-### 4.PMC<br>
-![Exemplo de PMC](https://github.com/discproint/template_projeto_integrador/blob/main/arquivos/PMC.jpg?raw=true "PMC")
+**Principais entidades:**
+- Pessoa (especialização: Morador, Síndico, Funcionário)
+- Apartamento
+- Reserva
+- Convidados
+- Encomenda
+- Mensagem
+- Telefone
 
-a) inclusão do PMC desenvolvido pelo grupo <br>
+*(Inserir aqui a imagem do Modelo Conceitual)*
+
+---
+
+### 8. Descrição dos Dados
+
+- **Pessoa**: Armazena os dados básicos das pessoas do sistema (nome, sobrenome, CPF, e-mail).  
+- **Morador**: Especialização de Pessoa. Representa os moradores das unidades.  
+- **Síndico**: Especialização de Pessoa. Representa o síndico responsável pela administração.  
+- **Funcionário**: Especialização de Pessoa. Representa os funcionários do condomínio (com cargo).  
+- **Apartamento**: Representa as unidades do condomínio (número, proprietário, síndico).  
+- **Reserva**: Armazena as reservas de áreas comuns (data, tempo, local, quantidade de pessoas).  
+- **Convidados**: Pessoas convidadas vinculadas a uma reserva.  
+- **Encomenda**: Controle de encomendas recebidas no condomínio.  
+- **Mensagem**: Comunicados e mensagens trocadas no sistema.  
+- **Telefone**: Números de telefone vinculados às pessoas.
+
+---
+
+### 9. Rastreabilidade dos Artefatos
+
+#### a) Histórias de Usuário × Protótipo
+
+| História de Usuário                                      | Tela do Protótipo                  |
+|----------------------------------------------------------|------------------------------------|
+| Morador receber comunicados                              | Tela de Comunicados                |
+| Síndico divulgar comunicados                             | Tela de Comunicados + Dashboard    |
+| Funcionário receber tarefas do dia                       | Tela de Ocorrências / Dashboard    |
+| Morador registrar ocorrências                            | Tela de Ocorrências                |
+| Síndico gerenciar reservas e visitantes                  | Tela de Reservas + Visitantes      |
+| Funcionário enviar atualizações de serviços              | Tela de Ocorrências                |
+
+#### b) Protótipo × Modelo Conceitual
+
+| Funcionalidade do Protótipo     | Entidades envolvidas              |
+|--------------------------------|-------------------------------------|
+| Gestão de Moradores            | Pessoa, Morador, Apartamento        |
+| Gestão de Funcionários         | Pessoa, Funcionário                 |
+| Gestão de Ocorrências          | (precisa ser melhor mapeada)        |
+| Gestão de Reservas             | Reserva, Convidados, Apartamento    |
+| Comunicados                    | Mensagem                            |
+| Controle de Visitantes         | Convidados / Reserva                |
+
+---
+
+### 10. Project Model Canvas (GP)
+
+![Project Model Canvas](./imagens/project_model_canvas.jpg)
+
+**Resumo do Canvas:**
+
+- **Justificativas**:  
+  - Falta de comunicação entre gestão do condomínio e condôminos gerando atrasos.  
+  - Falta de canal direto com síndico e baixa transparência.
+
+- **Produto**: Gestão de condomínio - Sistema Web com comunicados e demandas em tempo real
+
+- **Stakeholders Externos**: Funcionários e moradores de condomínios residenciais, síndico e administração.
+
+- **Premissas**: Disponibilidade de infraestrutura: internet, computadores e horários extraclasse dedicados ao desenvolvimento. Comunicação efetiva com moradores e equipe.
+
+- **Riscos**: Prazo acadêmico apertado. Indisponibilidade eventual de computadores ou internet.
+
+- **Objetivo SMART**: Reduzir em 40% o tempo de resolução de demandas em 3 meses, gerando eficiência e satisfação aos moradores através de informações centralizadas.
+
+- **Requisitos**:  
+  - Cadastrar novos moradores com perfis.  
+  - Mostrar eventos importantes com notificações.  
+  - Fazer agendamentos de áreas comuns.  
+  - Fazer denúncias e reclamações com rastreamento.
+
+- **Equipe**: Ana B., Arthur, Ana C., Hadassa | Isabelly e Pietro
+
+- **Grupo de Entregas**:  
+  1. Entrega das funções básicas do sistema para uso da ferramenta  
+  2. Requisitos não funcionais, segurança e documentação
+
+- **Benefícios Futuro**:  
+  - Mais organização e segurança. Redução do tempo gasto em administração manual.  
+  - Melhor comunicação e convívio entre condôminos.
+
+- **Restrições**:  
+  - Prazo curto definido pelo calendário acadêmico.  
+  - Desenvolvimento limitado a horários extraclasse da equipe.
+
+- **Custos**: R$ 1.560,00 - Projeto acadêmico: Hospedagem R$ 800,00, Domínio R$ 120,00, Ferramentas e testes R$ 640,00. Sem custos de mão de obra - fins didáticos.
+
+---
+
+### 11. Divisão de Atividades do Grupo
+
+| Atividade                                      | Quem elaborou          | Horas planejadas | Horas gastas |
+|------------------------------------------------|------------------------|------------------|--------------|
+| Desenvolvedor back-end (agendamento)           | Pietro Mantovani       | 300h             |              |
+| Desenvolvedor back-end (reclamações)           | Arthur Oliveira        | 300h             |              |
+| Desenvolvedor back-end (mural de comunicados)  | Hadassa                | 300h             |              |
+| Desenvolvedor front-end (tela de reclamação)   | Isabelly Neves         | 300h             |              |
+| Desenvolvedor front-end (tela de agendamento)  | Ana Clara              | 300h             |              |
+| Desenvolvedor front-end (tela de mural)        | Ana Beatriz            | 300h             |              |
+
+---
+
+**Observação:**  
+Este documento consolida todos os artefatos desenvolvidos pelo grupo.
