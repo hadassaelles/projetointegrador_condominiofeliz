@@ -260,7 +260,8 @@ O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacioname
 ### 10. Project Model Canvas (GP)
 
 
-<img width="1600" height="938" alt="WhatsApp Image 2026-09-25 at 20 22 13" src="https://github.com/user-attachments/assets/70d13ff1-3880-4551-8b03-faf3a76d91e3" />
+<img width="1600" height="938" alt="WhatsApp Image 2026-09-25 at 20 22 13 (1)" src="https://github.com/user-attachments/assets/41985d45-32f6-49ed-b10e-8e97e772bf88" />
+
 
 
 
