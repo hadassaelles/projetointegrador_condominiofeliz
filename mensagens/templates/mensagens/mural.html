@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Mural de Comunicados</title></head>
+<body>
+    <h1>Mural de Comunicados</h1>
+
+    {% if is_sindico_flag %}
+        <a href="{% url 'mensagens:publicar' %}">+ Publicar comunicado</a>
+    {% endif %}
+
+    {% for n in noticias %}
+        <div style="border-bottom:1px solid #ccc; margin-bottom:16px; padding-bottom:8px;">
+            <h3>{{ n.titulo }}</h3>
+            <p><small>{{ n.criado_em|date:"d/m/Y H:i" }} — {{ n.autor.get_full_name|default:n.autor.username }}</small></p>
+            <p>{{ n.conteudo|linebreaks }}</p>
+            {% if is_sindico_flag %}
+                <a href="{% url 'mensagens:editar' n.id %}">Editar</a> |
+                <a href="{% url 'mensagens:excluir' n.id %}">Excluir</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Nenhum comunicado publicado até o momento.</p>
+    {% endfor %}
+</body>
+</html>

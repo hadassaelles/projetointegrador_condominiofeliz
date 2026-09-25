@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Reserva</title>
+    <link rel="stylesheet" href="{% static 'pessoas/loginGeral.css' %}">
+</head>
+<body>
+    <main class="login-card">
+        <h1>Nova Reserva</h1>
+        <p class="subtitle">Reservar área comum</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for erro in form.non_field_errors %}
+                <p style="color:#dc2626;">{{ erro }}</p>
+            {% endfor %}
+
+            {% for campo in form %}
+                <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                {{ campo }}
+                {% for erro in campo.errors %}
+                    <p style="color:#dc2626; font-size:0.85rem;">{{ erro }}</p>
+                {% endfor %}
+            {% endfor %}
+
+            <button class="btn-gradient" type="submit">Reservar</button>
+        </form>
+        <a href="{% url 'reservas:dashboard_morador' %}" class="forgot-password">Voltar</a>
+    </main>
+</body>
+</html>

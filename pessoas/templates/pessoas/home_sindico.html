@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Síndico </title>
+    <link rel="stylesheet" href="{% static 'pessoas/homeSindico.css' %}">
+    
+</head>
+<body>
+    <main class="login-card">
+        <h1>Bem-Vindo(a), Síndico(a)!</h1>
+        <nav>
+            <a class="botao" href="#">Gerenciar Reclamação</a>
+            <a class="botao" href="#">Gerenciar Sugestão/Denúncia</a>
+            <a class="botao" href="#">Gerenciar Encomendas</a>
+            <a class="botao" href="{% url 'reservas:gerenciar' %}">Gerenciar Reserva de Espaços</a>
+            <a class="botao" href="{% url 'mensagens:mural' %}">Publicar Notícias</a>
+            <a class="botao" href="#">Cadastrar Moradores/Funcionários</a>
+        </nav>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Sair</button>
+        </form>
+</body>
+</html>

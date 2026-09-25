@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>{{ titulo_pagina }}</title></head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for campo in form %}
+            <p>
+                <label>{{ campo.label }}</label><br>
+                {{ campo }}
+                {% for erro in campo.errors %}<br><span style="color:red;">{{ erro }}</span>{% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="{% url 'mensagens:mural' %}">Cancelar</a>
+</body>
+</html>
