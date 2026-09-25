@@ -133,6 +133,10 @@ Realizamos pesquisa via Google Forms com 2 alunos do IFES que têm experiência 
 
 #### 5.1 Personas
 
+
+[personas.pdf](https://github.com/user-attachments/files/32672313/personas.pdf)
+
+
 **Persona 1 – Maria, 40 anos (Moradora)**  
 - Moradora do condomínio  
 - Especialidade: participação na comunidade  
