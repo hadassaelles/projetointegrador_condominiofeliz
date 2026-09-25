@@ -267,7 +267,7 @@ O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacioname
 **Resumo do Canvas:**
 
 - **Justificativas**:  
-  - Falta de comunicação entre gestão do condomínio e condôminos gerando atrasos.  
+  - Falta de comunicação entre gestão do condomínio, sindico e moradores gerando atrasos.  
   - Falta de canal direto com síndico e baixa transparência.
 
 - **Produto**: Gestão de condomínio - Sistema Web com comunicados e demandas em tempo real
