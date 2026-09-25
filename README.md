@@ -119,7 +119,8 @@ b) Link para Relatório/Apresentação de resultados obtidos:
 **O que aprendemos com o público?**  
 **O que aprendemos que não sabíamos antes de entrevistar o público-alvo?**
 
-![Digital Investigation Card](./imagens/digital_investigation_card.jpg)
+<img width="1376" height="752" alt="WhatsApp Image 2026-09-25 at 19 49 45" src="https://github.com/user-attachments/assets/1c37675f-4909-47b7-aa61-f2d83e58ec8e" />
+
 
 **Pitch das Evidências:**  
 Realizamos pesquisa via Google Forms com 2 alunos do IFES que têm experiência em condomínios. Identificamos dificuldade de gerenciamento e acesso a informações.  
@@ -173,6 +174,10 @@ Realizamos pesquisa via Google Forms com 2 alunos do IFES que têm experiência 
 ---
 
 ### 6. PROTÓTIPOS DO SISTEMA
+
+
+[prototipo.pdf](https://github.com/user-attachments/files/32672323/prototipo.pdf)
+
 
 O protótipo do sistema (versão web) está disponível no arquivo:  
 **prototipo.pdf**
