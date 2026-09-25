@@ -197,6 +197,10 @@ Principais telas desenvolvidas (visão do Síndico/Administrador):
 
 ### 7. MODELO CONCEITUAL
 
+
+<img width="808" height="622" alt="WhatsApp Image 2026-09-25 at 19 57 10" src="https://github.com/user-attachments/assets/d67900f7-c8b3-4ff6-9ef9-69e04d9ea7fd" />
+
+
 O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacionamento (BR Modelo).
 
 **Principais entidades:**
@@ -255,7 +259,8 @@ O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacioname
 
 ### 10. Project Model Canvas (GP)
 
-![Project Model Canvas](./imagens/project_model_canvas.jpg)
+<img width="1600" height="950" alt="WhatsApp Image 2026-09-25 at 19 49 44 (1)" src="https://github.com/user-attachments/assets/2706b471-af5d-4f4f-9890-e20127d70140" />
+
 
 **Resumo do Canvas:**
 
