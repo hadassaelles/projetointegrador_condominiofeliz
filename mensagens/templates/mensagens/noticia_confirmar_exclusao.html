@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Excluir Comunicado</title></head>
+<body>
+    <h1>Excluir Comunicado</h1>
+    <p>Tem certeza que deseja excluir "<strong>{{ noticia.titulo }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sim, excluir</button>
+    </form>
+    <a href="{% url 'mensagens:mural' %}">Cancelar</a>
+</body>
+</html>
