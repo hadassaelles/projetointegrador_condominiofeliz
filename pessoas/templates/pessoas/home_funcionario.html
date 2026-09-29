@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Funcionário</title>
+    <link rel="stylesheet" href="{% static 'pessoas/homeSindico.css' %}">
+</head>
+<body>
+    <main class="login-card">
+        <h1>Bem-Vindo(a), Funcionário(a)!</h1>
+        <p class="subtitle">Painel do Funcionário</p>
+
+        <nav>
+            <a class="botao" href="{% url 'encomendas:registrar' %}">Registrar Encomenda</a>
+            <a class="botao" href="{% url 'reservas:do_dia' %}">Ver Reservas do Dia</a>
+            <a class="botao" href="{% url 'mensagens:mural' %}">Ver Mural de Comunicados</a>
+        </nav>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Sair</button>
+        </form>
+    </main>
+</body>
+</html>

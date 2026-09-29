@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Registrar Encomenda</title></head>
+<body>
+    <h1>Registrar Encomenda</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for campo in form %}
+            <p>
+                <label>{{ campo.label }}</label><br>
+                {{ campo }}
+                {% for erro in campo.errors %}<br><span style="color:red;">{{ erro }}</span>{% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">Registrar</button>
+    </form>
+
+    <h2>Encomendas registradas</h2>
+    <table border="1" cellpadding="6">
+        <tr><th>Unidade</th><th>Descrição</th><th>Status</th><th></th></tr>
+        {% for e in encomendas %}
+        <tr>
+            <td>{{ e.unidade }}</td>
+            <td>{{ e.descricao }}</td>
+            <td>{{ e.get_status_display }}</td>
+            <td>
+                {% if e.status != 'RETIRADA' %}
+                <form method="post" action="{% url 'encomendas:marcar_retirada' e.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Marcar retirada</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Nenhuma encomenda registrada.</td></tr>
+        {% endfor %}
+    </table>
+
+    <p><a href="{% url 'home_funcionario' %}">Voltar</a></p>
+</body>
+</html>

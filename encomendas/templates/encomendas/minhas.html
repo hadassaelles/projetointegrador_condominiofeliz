@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Minhas Encomendas</title></head>
+<body>
+    <h1>Encomendas da Unidade</h1>
+    {% for e in encomendas %}
+        <p>
+            <strong>Descrição:</strong> {{ e.descricao }}<br>
+            <strong>Data:</strong> {{ e.criado_em|date:"d/m/Y H:i" }}<br>
+            <strong>Status:</strong> {{ e.get_status_display }}
+        </p>
+        <hr>
+    {% empty %}
+        <p>Nenhuma encomenda registrada para sua unidade.</p>
+    {% endfor %}
+</body>
+</html>

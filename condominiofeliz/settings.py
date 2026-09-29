@@ -132,5 +132,5 @@ MAILERS = {
 }
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home_sindico'
+LOGIN_REDIRECT_URL = 'redirecionar_apos_login'
 LOGOUT_REDIRECT_URL = 'login'
