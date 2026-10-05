@@ -132,5 +132,5 @@ MAILERS = {
 }
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'redirecionar_apos_login'
+LOGIN_REDIRECT_URL = '/redirecionar/'
 LOGOUT_REDIRECT_URL = 'login'
