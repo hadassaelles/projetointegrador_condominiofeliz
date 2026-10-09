@@ -2,14 +2,24 @@ from datetime import date
 from django import forms
 from .models import Reserva
 
+LOCAIS_DISPONIVEIS = [
+    ('Salão de Festas', '🎉 Salão de Festas'),
+    ('Churrasqueira', '🔥 Churrasqueira'),
+    ('Quadra Poliesportiva', '🏆 Quadra Poliesportiva'),
+    ('Piscina', '🌊 Piscina'),
+]
+
+
 class ReservaForm(forms.ModelForm):
+    local = forms.ChoiceField(choices=LOCAIS_DISPONIVEIS, label='Área')
+
     class Meta:
         model = Reserva
-        fields = ['area', 'data', 'hora_inicio', 'hora_fim', 'unidade']
+        fields = ['local', 'data', 'horas_ini', 'horas_final', 'quant_pessoas']
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),
-            'hora_inicio': forms.TimeInput(attrs={'type': 'time'}),
-            'hora_fim': forms.TimeInput(attrs={'type': 'time'}),
+            'horas_ini': forms.TimeInput(attrs={'type': 'time'}),
+            'horas_final': forms.TimeInput(attrs={'type': 'time'}),
         }
 
     def clean_data(self):
@@ -20,8 +30,8 @@ class ReservaForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
-        inicio = cleaned.get('hora_inicio')
-        fim = cleaned.get('hora_fim')
+        inicio = cleaned.get('horas_ini')
+        fim = cleaned.get('horas_final')
         if inicio and fim and fim <= inicio:
             raise forms.ValidationError('O horário final deve ser depois do inicial.')
         return cleaned
