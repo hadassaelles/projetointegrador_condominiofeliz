@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('pessoas.urls')),
     path('reservas/', include('reservas.urls')),
     path('mensagens/', include('mensagens.urls')),
+    path('encomendas/', include('encomendas.urls')),
 ]
 

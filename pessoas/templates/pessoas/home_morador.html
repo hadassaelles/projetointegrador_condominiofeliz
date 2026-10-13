@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Morador</title>
+    <link rel="stylesheet" href="{% static 'pessoas/homeSindico.css' %}">
+</head>
+<body>
+    <main class="login-card">
+        <h1>Bem-Vindo(a)!</h1>
+        <p class="subtitle">Painel do Morador</p>
+
+        <nav>
+            <a class="botao" href="{% url 'reservas:dashboard_morador' %}">Reservas</a>
+            <a class="botao" href="{% url 'encomendas:minhas' %}">Minhas Encomendas</a>
+            <a class="botao" href="{% url 'mensagens:mural' %}">Mural de Comunicados</a>
+        </nav>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Sair</button>
+        </form>
+    </main>
+</body>
+</html>
