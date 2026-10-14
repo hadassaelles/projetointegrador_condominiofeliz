@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Morador </title>
-    <link rel="stylesheet" href="{% static '/pessoas/morador/home.css' %}">
+    <link rel="stylesheet" href="{% static 'pessoas/morador/home.css' %}">
     
 </head>
 <body>
@@ -27,6 +27,7 @@
         </div>
       </div>
 
+      {% comment %}
       <nav class="nav">
         <a href="#" class="nav-item active">
           <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg>
@@ -45,6 +46,7 @@
           <span>Comunicados</span>
         </a>
       </nav>
+      {% endcomment %}
 
       <div class="sidebar-footer">
         <div class="user-card">

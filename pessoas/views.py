@@ -6,10 +6,10 @@ from .permissions import is_sindico, is_funcionario
 def redirecionar_apos_login(request):
     user = request.user
     if is_sindico(user):
-        return redirect('pessoas/sindico/home.html')
+        return redirect('home_sindico')
     if is_funcionario(user):
-        return redirect('pessoas/funcionario/home.html')
-    return redirect('pessoas/morador/home.html')
+        return redirect('home_funcionario')
+    return redirect('home_morador')
 
 
 @user_passes_test(is_sindico)
