@@ -1,4 +1,4 @@
-###Instalação Oficial
+### Instalação Oficial
 
 Analise integralmente este projeto Django e prepare-o para que qualquer desenvolvedor consiga executá-lo em um ambiente Windows limpo possuindo apenas:
 
@@ -7,7 +7,7 @@ Git instalado
 
 O objetivo é que, após clonar o repositório, seja possível instalar automaticamente o Django e todas as dependências necessárias sem necessidade de descobrir bibliotecas faltantes ou realizar configurações não documentadas.
 
-###Fase 1 - Análise Completa do Projeto
+### Fase 1 - Análise Completa do Projeto
 
 Realize uma análise completa do código-fonte.
 
@@ -43,7 +43,7 @@ pyproject.toml
 
 Verifique todos os imports do projeto e extraia as dependências reais utilizadas.
 
-###Fase 2 - Dependências Python
+### Fase 2 - Dependências Python
 
 Crie ou atualize:
 
@@ -90,7 +90,7 @@ Caso necessário, gerar:
 
 PowerShell
 pip freeze > requirements.txt
-###Fase 3 - Ambiente Virtual
+### Fase 3 - Ambiente Virtual
 
 Documentar no README o processo de criação do ambiente virtual.
 
@@ -109,7 +109,7 @@ Confirmar ativação:
 PowerShell
 where python
 `
-###Fase 4 - Instalação Automática do Django
+### Fase 4 - Instalação Automática do Django
 
 Garantir que o README deixe explícito que o Django será instalado automaticamente através de:
 
@@ -146,7 +146,7 @@ ou
 
 PowerShell
 python -m django --version
-###Fase 5 - Variáveis de Ambiente
+### Fase 5 - Variáveis de Ambiente
 
 Criar:
 
@@ -180,7 +180,7 @@ Regras:
 Nunca incluir senhas reais.
 Nunca incluir chaves privadas.
 Nunca incluir credenciais de produção.
-###Fase 6 - Configuração do Banco de Dados
+### Fase 6 - Configuração do Banco de Dados
 
 Identificar qual banco está sendo utilizado.
 
@@ -215,7 +215,7 @@ Verificar configurações em:
 Python
 DATABASES
 ``
-###Fase 7 - Migrações
+### Fase 7 - Migrações
 
 Garantir que o README contenha:
 
@@ -232,7 +232,7 @@ Dependências ausentes
 
 Corrigir inconsistências encontradas.
 
-###Fase 8 - Arquivo .gitignore
+### Fase 8 - Arquivo .gitignore
 
 Criar ou atualizar:
 
@@ -272,7 +272,7 @@ Thumbs.db
  
 # Logs
 *.log
-###Fase 9 - Estrutura Recomendada
+### Fase 9 - Estrutura Recomendada
 
 Garantir a seguinte estrutura:
 
@@ -294,7 +294,7 @@ project/
 ├── README.md
 └── manage.py
  
-###Fase 10 - Script Automático Windows
+### Fase 10 - Script Automático Windows
 
 Criar:
 
@@ -316,7 +316,7 @@ PowerShell
 Set-ExecutionPolicy -Scope Process Bypass
  
 .\scripts\setup.ps1
-###Fase 11 - README Completo
+### Fase 11 - README Completo
 
 Gerar ou atualizar o README contendo:
 
