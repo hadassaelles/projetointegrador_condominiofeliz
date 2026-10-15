@@ -39,10 +39,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Sair</button>
-    </form>
+    <p><a href="{% url 'home_morador' %}">Voltar</a></p>
 </body>
 </html>

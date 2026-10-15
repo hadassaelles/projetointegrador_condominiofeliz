@@ -15,6 +15,8 @@
             <a class="botao" href="{% url 'reservas:dashboard_morador' %}">Reservas</a>
             <a class="botao" href="{% url 'encomendas:minhas' %}">Minhas Encomendas</a>
             <a class="botao" href="{% url 'mensagens:mural' %}">Mural de Comunicados</a>
+            <a class="botao" href="{% url 'mensagens:nova_ocorrencia' %}">Reclamação/Denúncia</a>
+            <a class="botao" href="{% url 'mensagens:nova_sugestao' %}">Sugestão</a>
         </nav>
 
         <form method="post" action="{% url 'logout' %}">

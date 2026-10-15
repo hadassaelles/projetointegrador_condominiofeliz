@@ -13,9 +13,9 @@
     <main class="login-card">
         <h1>Bem-Vindo(a), Síndico(a)!</h1>
         <nav>
-            <a class="botao" href="#">Gerenciar Reclamação</a>
-            <a class="botao" href="#">Gerenciar Sugestão/Denúncia</a>
-            <a class="botao" href="#">Gerenciar Encomendas</a>
+            <a class="botao" href="{% url 'mensagens:gerenciar_ocorrencias' %}">Gerenciar Reclamação/Denúncia</a>
+            <a class="botao" href="{% url 'mensagens:gerenciar_sugestoes' %}">Gerenciar Sugestão</a>
+            <a class="botao" href="{% url 'encomendas:registrar' %}">Gerenciar Encomendas</a>
             <a class="botao" href="{% url 'reservas:gerenciar' %}">Gerenciar Reserva de Espaços</a>
             <a class="botao" href="{% url 'mensagens:mural' %}">Publicar Notícias</a>
             <a class="botao" href="#">Cadastrar Moradores/Funcionários</a>
