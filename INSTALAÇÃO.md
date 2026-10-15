@@ -68,21 +68,37 @@ Além de todas as bibliotecas realmente utilizadas pelo projeto.
 Exemplos:
 
 **Plain Text**
+
 **Django**
+
 **djangorestframework**
+
 **django-cors-headers**
+
 **django-filter**
+
 **django-environ**
+
 **python-dotenv**
+
 **Pillow**
+
 **psycopg2-binary**
+
 **mysqlclient**
+
 **gunicorn**
+
 **whitenoise**
+
 **celery**
+
 **redis**
+
 **requests**
+
 **openpyxl**
+
 **pandas**
  
 
@@ -267,35 +283,44 @@ Conteúdo mínimo:
 .ignore
 ```
 # Ambiente virtual
-```venv/
+```
+venv/
 .env
  ```
 # Python
-```__pycache__/
+```
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
  ```
 # Banco local
-```db.sqlite3
+```
+db.sqlite3
  ```
 # Arquivos de mídia
-```media/
+```
+media/
  ```
 # Arquivos estáticos
-```staticfiles/
+```
+staticfiles/
  ```
 # VS Code
-```.vscode/
+```
+.vscode/
  ```
 # JetBrains
-```.idea/
+```
+.idea/
  ```
 # Sistema
-```Thumbs.db
+```
+Thumbs.db
  ```
 # Logs
-```*.log
+```
+*.log
 ```
 ### Fase 9 - Estrutura Recomendada
 
