@@ -327,7 +327,7 @@ project/
 ├── .gitignore
 ├── README.md
 └── manage.py
- ```
+ 
 
 ## Fase 10 - Script Automático Windows
 
