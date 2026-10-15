@@ -2,7 +2,8 @@
 
 Analise integralmente este projeto Django e prepare-o para que qualquer desenvolvedor consiga executá-lo em um ambiente Windows limpo possuindo apenas:
 
-```Python instalado
+   ```
+   Python instalado
    Git instalado
    ```
 
@@ -13,8 +14,8 @@ O objetivo é que, após clonar o repositório, seja possível instalar automati
 Realize uma análise completa do código-fonte.
 
 Identifique:
-
-**Versão mínima do Python necessária
+```
+Versão mínima do Python necessária
 Versão do Django utilizada
 Apps Django instalados
 Bibliotecas Python utilizadas
@@ -23,11 +24,13 @@ Banco de dados utilizado
 Serviços externos utilizados
 Variáveis de ambiente obrigatórias
 Arquivos ausentes para execução
-Dependências do sistema operacional necessárias**
+Dependências do sistema operacional necessárias
+```
 
 Analise especialmente:
 
-```Python
+```
+Python
 INSTALLED_APPS
 Python
 MIDDLEWARE
@@ -49,37 +52,38 @@ Verifique todos os imports do projeto e extraia as dependências reais utilizada
 
 Crie ou atualize:
 
-```Plain Text
+```
+Plain Text
 requirements.txt
 ```
 
 O arquivo deve conter obrigatoriamente:
 
-```Plain Text
+Plain Text
 Django
-``` 
+
 
 Além de todas as bibliotecas realmente utilizadas pelo projeto.
 
 Exemplos:
 
-**Plain Text
-Django
-djangorestframework
-django-cors-headers
-django-filter
-django-environ
-python-dotenv
-Pillow
-psycopg2-binary
-mysqlclient
-gunicorn
-whitenoise
-celery
-redis
-requests
-openpyxl
-pandas**
+**Plain Text**
+**Django**
+**djangorestframework**
+**django-cors-headers**
+**django-filter**
+**django-environ**
+**python-dotenv**
+**Pillow**
+**psycopg2-binary**
+**mysqlclient**
+**gunicorn**
+**whitenoise**
+**celery**
+**redis**
+**requests**
+**openpyxl**
+**pandas**
  
 
 # Regras:
@@ -91,7 +95,8 @@ Atualizar o arquivo com as dependências efetivamente utilizadas.
 
 Caso necessário, gerar:
 
-```PowerShell
+```
+PowerShell
 pip freeze > requirements.txt
 ```
 ### Fase 3 - Ambiente Virtual
@@ -100,18 +105,21 @@ Documentar no README o processo de criação do ambiente virtual.
 
 **Criar ambiente:**
 
-```PowerShell
+```
+PowerShell
 python -m venv venv
 ```
 
 **Ativar ambiente:**
 
-```PowerShell
+```
+PowerShell
 venv\Scripts\activate
 ```
 **Confirmar ativação:**
 
-```PowerShell
+```
+PowerShell
 where python
 ```
 
@@ -119,20 +127,23 @@ where python
 
 Garantir que o README deixe explícito que o Django será instalado automaticamente através de:
 
-```PowerShell
+```
+PowerShell
 pip install -r requirements.txt
 ```
 
 O usuário não deverá precisar executar:
 
-```PowerShell
+```
+PowerShell
 pip install django
 ```
 manualmente.
 
 O Django deve estar listado dentro do:
 
-```Plain Text
+```
+Plain Text
 requirements.txt
 ```
 junto com todas as demais dependências.
@@ -141,7 +152,8 @@ Instalação Manual do Django (Opcional)
 
 Caso o usuário deseje instalar apenas o Django manualmente:
 
-```PowerShell
+```
+PowerShell
 pip install django
 ```
 Verificar instalação:
@@ -151,7 +163,8 @@ django-admin --version
 ```
 ou
 
-```PowerShell
+```
+PowerShell
 python -m django --version
 ```
 ### Fase 5 - Variáveis de Ambiente
@@ -167,7 +180,8 @@ Exemplo:
 
 Plain Text
 env não tem suporte total. O realce de sintaxe é baseado em Plain Text.
-```SECRET_KEY=
+```
+SECRET_KEY=
  
 DEBUG=True
  
@@ -342,7 +356,8 @@ git clone <repositorio>
 ``` 
 cd <repositorio>
 Criando ambiente virtual
-```PowerShell
+```
+PowerShell
 python -m venv venv
 Ativando ambiente virtual
 PowerShell
@@ -361,7 +376,8 @@ PowerShell
 python manage.py createsuperuser
 ``` 
 Executando servidor
-```PowerShell
+```
+PowerShell
 python manage.py runserver
 Acessando o sistema
 Plain Text
