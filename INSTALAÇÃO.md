@@ -9,7 +9,7 @@ Analise integralmente este projeto Django e prepare-o para que qualquer desenvol
 
 O objetivo é que, após clonar o repositório, seja possível instalar automaticamente o Django e todas as dependências necessárias sem necessidade de descobrir bibliotecas faltantes ou realizar configurações não documentadas.
 
-### Fase 1 - Análise Completa do Projeto
+## Fase 1 - Análise Completa do Projeto
 
 Realize uma análise completa do código-fonte.
 
@@ -48,7 +48,7 @@ pyproject.toml
 
 Verifique todos os imports do projeto e extraia as dependências reais utilizadas.
 
-### Fase 2 - Dependências Python
+## Fase 2 - Dependências Python
 
 Crie ou atualize:
 
@@ -63,7 +63,7 @@ O arquivo deve conter obrigatoriamente:
 - Django
 
 
-# Regras:
+### Regras:
 
 Não inventar dependências.
 Identificar dependências através dos imports encontrados.
@@ -76,7 +76,7 @@ Caso necessário, gerar:
 PowerShell
 pip freeze > requirements.txt
 ```
-### Fase 3 - Ambiente Virtual
+## Fase 3 - Ambiente Virtual
 
 Documentar no README o processo de criação do ambiente virtual.
 
@@ -100,7 +100,7 @@ PowerShell
 where python
 ```
 
-### Fase 4 - Instalação Automática do Django
+## Fase 4 - Instalação Automática do Django
 
 Garantir que o README deixe explícito que o Django será instalado automaticamente através de:
 
@@ -144,7 +144,7 @@ django-admin --version
 PowerShell
 python -m django --version
 ```
-### Fase 5 - Variáveis de Ambiente
+## Fase 5 - Variáveis de Ambiente
 
 Criar:
 ```
@@ -179,7 +179,8 @@ EMAIL_HOST_PASSWORD=
 Nunca incluir senhas reais.
 Nunca incluir chaves privadas.
 Nunca incluir credenciais de produção.
-### Fase 6 - Configuração do Banco de Dados
+
+## Fase 6 - Configuração do Banco de Dados
 
 Identificar qual banco está sendo utilizado.
 ```
@@ -215,7 +216,7 @@ Verificar configurações em:
 Python
 DATABASES
 ```
-### Fase 7 - Migrações
+## Fase 7 - Migrações
 
 Garantir que o README contenha:
 ```
@@ -232,60 +233,82 @@ Dependências ausentes
 ```
 Corrigir inconsistências encontradas.
 
-### Fase 8 - Arquivo .gitignore
+## Fase 8 - Arquivo .gitignore
 
 Criar ou atualizar:
+
 ```
 Plain Text
 .gitignore
 ```
 Conteúdo mínimo:
+
 ```
 .ignore
 ```
-# Ambiente virtual
+
+### Ambiente virtual
+
 ```
 venv/
 .env
  ```
-# Python
+
+### Python
+
 ```
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
  ```
-# Banco local
+
+### Banco local
+
 ```
 db.sqlite3
  ```
-# Arquivos de mídia
+
+### Arquivos de mídia
+
 ```
 media/
  ```
-# Arquivos estáticos
+
+### Arquivos estáticos
+
 ```
 staticfiles/
  ```
-# VS Code
+
+### VS Code
+
 ```
 .vscode/
  ```
-# JetBrains
+
+### JetBrains
+
 ```
 .idea/
  ```
-# Sistema
+
+### Sistema
+
 ```
 Thumbs.db
  ```
-# Logs
+
+### Logs
+
 ```
 *.log
 ```
-### Fase 9 - Estrutura Recomendada
+
+## Fase 9 - Estrutura Recomendada
 
 Garantir a seguinte estrutura:
+
 ```
 Plain Text
 project/
@@ -305,14 +328,18 @@ project/
 ├── README.md
 └── manage.py
  ```
-### Fase 10 - Script Automático Windows
+
+## Fase 10 - Script Automático Windows
 
 Criar:
+
 ```
 Plain Text
 scripts/setup.ps1
 ```
+
 O script deve:
+
 ```
 Criar ambiente virtual
 Ativar ambiente virtual
@@ -321,16 +348,20 @@ Criar .env a partir do .env.example
 Aplicar migrations
 Executar validações do Django
 ```
+
 Fluxo esperado:
+
 ```
 PowerShell
 Set-ExecutionPolicy -Scope Process Bypass
  
 .\scripts\setup.ps1
 ```
-### Fase 11 - README Completo
+
+## Fase 11 - README Completo
 
 Gerar ou atualizar o README contendo:
+
 ```
 Requisitos
 Plain Text
@@ -340,8 +371,10 @@ Clonando o projeto
 PowerShell
 git clone <repositorio>
 ``` 
+
 cd <repositorio>
 Criando ambiente virtual
+
 ```
 PowerShell
 python -m venv venv
@@ -361,7 +394,9 @@ Criando administrador
 PowerShell
 python manage.py createsuperuser
 ``` 
+
 Executando servidor
+
 ```
 PowerShell
 python manage.py runserver
@@ -372,29 +407,39 @@ Painel administrativo
 Plain Text
 http://127.0.0.1:8000/admin
 ```
-### Fase 12 - Validação Final
+
+## Fase 12 - Validação Final
 
 Executar:
+
 ```
 PowerShell
 python manage.py check
 ```
+
 Executar:
+
 ```
 PowerShell
 python manage.py makemigrations
 ```
+
 Executar:
+
 ```
 PowerShell
 python manage.py migrate
 ```
+
 Executar:
+
 ```
 PowerShell
 python manage.py runserver
 ```
+
 Verificar:
+
 ```
 ✅ Django instalado corretamente
 ✅ Todas as dependências instaladas
