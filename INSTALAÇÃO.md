@@ -59,48 +59,9 @@ requirements.txt
 
 O arquivo deve conter obrigatoriamente:
 
-Plain Text
-Django
+- Plain Text
+- Django
 
-
-Além de todas as bibliotecas realmente utilizadas pelo projeto.
-
-Exemplos:
-
-**Plain Text**
-
-**Django**
-
-**djangorestframework**
-
-**django-cors-headers**
-
-**django-filter**
-
-**django-environ**
-
-**python-dotenv**
-
-**Pillow**
-
-**psycopg2-binary**
-
-**mysqlclient**
-
-**gunicorn**
-
-**whitenoise**
-
-**celery**
-
-**redis**
-
-**requests**
-
-**openpyxl**
-
-**pandas**
- 
 
 # Regras:
 
@@ -166,18 +127,18 @@ junto com todas as demais dependências.
 
 Instalação Manual do Django (Opcional)
 
-Caso o usuário deseje instalar apenas o Django manualmente:
+**Caso o usuário deseje instalar apenas o Django manualmente:**
 
 ```
 PowerShell
 pip install django
 ```
-Verificar instalação:
+**Verificar instalação:**
 ```
 PowerShell
 django-admin --version
 ```
-ou
+**ou**
 
 ```
 PowerShell
@@ -213,7 +174,7 @@ EMAIL_HOST_USER=
  
 EMAIL_HOST_PASSWORD=
 ```
-Regras:
+**Regras:**
 
 Nunca incluir senhas reais.
 Nunca incluir chaves privadas.
@@ -448,7 +409,7 @@ Verificar:
 ```
 Critério de Sucesso Obrigatório
 
-Uma pessoa em um computador Windows limpo deve conseguir executar apenas:
+**Uma pessoa em um computador Windows limpo deve conseguir executar apenas:**
 ```
 PowerShell
 git clone <repositorio>
