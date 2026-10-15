@@ -331,14 +331,22 @@ project/
 
 ## Fase 10 - Script Automático Windows
 
+
+
 Criar:
+
+
 
 ```
 Plain Text
 scripts/setup.ps1
 ```
 
+
+
 O script deve:
+
+
 
 ```
 Criar ambiente virtual
@@ -349,18 +357,28 @@ Aplicar migrations
 Executar validações do Django
 ```
 
+
+
 Fluxo esperado:
+
+
 
 ```
 PowerShell
 Set-ExecutionPolicy -Scope Process Bypass
- 
+ 
 .\scripts\setup.ps1
 ```
 
+
+
 ## Fase 11 - README Completo
 
+
+
 Gerar ou atualizar o README contendo:
+
+
 
 ```
 Requisitos
@@ -370,10 +388,14 @@ Git
 Clonando o projeto
 PowerShell
 git clone <repositorio>
-``` 
+``` 
+
+
 
 cd <repositorio>
 Criando ambiente virtual
+
+
 
 ```
 PowerShell
@@ -393,52 +415,78 @@ python manage.py migrate
 Criando administrador
 PowerShell
 python manage.py createsuperuser
-``` 
+``` 
+
+
 
 Executando servidor
+
+
 
 ```
 PowerShell
 python manage.py runserver
 Acessando o sistema
 Plain Text
-http://127.0.0.1:8000
+ http://127.0.0.1:8000 
 Painel administrativo
 Plain Text
-http://127.0.0.1:8000/admin
+ http://127.0.0.1:8000/admin 
 ```
+
+
 
 ## Fase 12 - Validação Final
 
+
+
 Executar:
+
+
 
 ```
 PowerShell
 python manage.py check
 ```
 
+
+
 Executar:
+
+
 
 ```
 PowerShell
 python manage.py makemigrations
 ```
 
+
+
 Executar:
+
+
 
 ```
 PowerShell
 python manage.py migrate
 ```
 
+
+
 Executar:
+
+
 
 ```
 PowerShell
 python manage.py runserver
 ```
 
+
+
 Verificar:
+
+
 
 ```
 ✅ Django instalado corretamente
@@ -454,23 +502,39 @@ Verificar:
 ```
 Critério de Sucesso Obrigatório
 
+
+
 **Uma pessoa em um computador Windows limpo deve conseguir executar apenas:**
+
+
+
 ```
 PowerShell
 git clone <repositorio>
- ```
+ ```
+
+
+
 cd <repositorio>
- ```
+
+
+
+ ```
 python -m venv venv
 
+
+
 venv\Scripts\activate
- 
+ 
 pip install -r requirements.txt
- 
+ 
 copy .env.example .env
- 
+ 
 python manage.py migrate
- 
+ 
 python manage.py runserver
 ```
+
 Sem precisar instalar Django manualmente, sem precisar descobrir dependências faltantes e sem precisar realizar configurações extras que não estejam documentadas no repositório.
+
+
