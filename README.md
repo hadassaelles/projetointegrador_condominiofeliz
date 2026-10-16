@@ -1,6 +1,8 @@
 # TRABALHO DE PI: Condomínio Feliz
 Trabalho desenvolvido durante a disciplina de Projeto Integrador
 
+### PARA INSTALAR, VÁ PARA O ARQUIVO INSTALAÇÃO.md
+
 ### 1. COMPONENTES
 - Ana Beatriz Soares - anabeeas12@gmail.com  
 - Ana Clara Vianna - anaclaravianna2005@gmail.com  
