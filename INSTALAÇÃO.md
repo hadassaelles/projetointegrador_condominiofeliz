@@ -138,9 +138,9 @@ django-admin --version
 - Uma pessoa em um computador novo deve conseguir executar apenas:
 
 ```
-git clone <repositorio>
+git clone https://github.com/hadassaelles/projetointegrador_condominiofeliz.git
 
-cd <repositorio>
+cd projetointegrador_condominiofeliz
 
 python -m venv venv
 
