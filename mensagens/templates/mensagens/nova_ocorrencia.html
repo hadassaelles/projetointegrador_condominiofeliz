@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Ocorrência | Condomínio Feliz</title>
+    <link rel="stylesheet" href="{% static 'pessoas/morador/ocorrencia.css' %}">
+    <style>
+        .form-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 32px;
+            max-width: 680px;
+            margin-top: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+            font-family: inherit;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 28px;
+        }
+        .btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🏢</div>
+      <div class="brand-text">
+        <strong>Condomínio Feliz</strong>
+        <span>Ocorrências</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="{% url 'home_morador' %}" class="nav-item">
+        <span class="nav-icon">▦</span> Dashboard
+      </a>
+      <a href="{% url 'mensagens:minhas_ocorrencias' %}" class="nav-item active">
+        <span class="nav-icon">⚠</span> Ocorrências
+      </a>
+      <a href="{% url 'reservas:dashboard_morador' %}" class="nav-item">
+        <span class="nav-icon">▤</span> Reservas
+      </a>
+      <a href="{% url 'mensagens:mural' %}" class="nav-item">
+        <span class="nav-icon">📣</span> Comunicados
+      </a>
+    </nav>
+
+    <div class="user-card">
+      <strong>{{ pessoa.nome|default:user.username }} {{ pessoa.sobrenome }}</strong>
+      <span>{% if morador.apartamento %}Apto {{ morador.apartamento.numero }}{% else %}Morador{% endif %}</span>
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">⏻ Sair</button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <header class="page-header">
+      <div>
+        <h1>Registrar Nova Ocorrência</h1>
+        <p>Preencha os detalhes do chamado para análise da administração</p>
+      </div>
+    </header>
+
+    <div class="form-card">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <div style="background: #fdf0e3; color: #d98a2b; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+            Por favor, corrija os erros abaixo no formulário.
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label for="{{ form.categoria.id_for_label }}">Categoria:</label>
+          {{ form.categoria }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.titulo.id_for_label }}">Título da Ocorrência:</label>
+          <input type="text" name="titulo" id="{{ form.titulo.id_for_label }}" class="form-control" placeholder="Ex: Vazamento no encanamento, barulho excessivo..." required value="{{ form.titulo.value|default:'' }}">
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.unidade.id_for_label }}">Unidade / Apartamento:</label>
+          <input type="text" name="unidade" id="{{ form.unidade.id_for_label }}" class="form-control" placeholder="Ex: Apto 102 Bloco B" value="{{ form.unidade.value|default:'' }}">
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.descricao.id_for_label }}">Descrição Detalhada:</label>
+          <textarea name="descricao" id="{{ form.descricao.id_for_label }}" class="form-control" rows="5" placeholder="Descreva o ocorrido com o máximo de informações possível..." required>{{ form.descricao.value|default:'' }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.imagem.id_for_label }}">Anexo / Foto (opcional):</label>
+          <input type="file" name="imagem" id="{{ form.imagem.id_for_label }}" class="form-control">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Enviar Ocorrência</button>
+          <a href="{% url 'mensagens:minhas_ocorrencias' %}" class="btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+
+  </main>
+</div>
+    
+</body>
+</html>
+

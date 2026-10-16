@@ -1,12 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocorrências | Morador</title>
     <link rel="stylesheet" href="{% static 'pessoas/morador/ocorrencia.css' %}">
-
 </head>
 <body>
 
@@ -23,23 +22,23 @@
     </div>
 
     <nav class="nav">
-      <a href="homeMorador.html" class="nav-item">
+      <a href="{% url 'home_morador' %}" class="nav-item">
         <span class="nav-icon">▦</span> Dashboard
       </a>
-      <a href="ocorrenciasMorador.html" class="nav-item active">
+      <a href="{% url 'mensagens:minhas_ocorrencias' %}" class="nav-item active">
         <span class="nav-icon">⚠</span> Ocorrências
       </a>
-      <a href="reservasMorador.html" class="nav-item">
+      <a href="{% url 'reservas:dashboard_morador' %}" class="nav-item">
         <span class="nav-icon">▤</span> Reservas
       </a>
-      <a href="comunicadosMorador.html" class="nav-item">
+      <a href="{% url 'mensagens:mural' %}" class="nav-item">
         <span class="nav-icon">📣</span> Comunicados
       </a>
     </nav>
 
     <div class="user-card">
-      <strong>Nome do morador</strong>
-      <span>Morador</span>
+      <strong>{{ pessoa.nome|default:user.username }} {{ pessoa.sobrenome }}</strong>
+      <span>{% if morador.apartamento %}Apto {{ morador.apartamento.numero }}{% else %}Morador{% endif %}</span>
       <form method="post" action="{% url 'logout' %}" style="display:inline;">
         {% csrf_token %}
         <button type="submit" class="logout-btn">⏻ Sair</button>
@@ -50,98 +49,110 @@
   <!-- Main content -->
   <main class="main">
 
+    {% if messages %}
+      <div style="margin-bottom: 20px;">
+        {% for message in messages %}
+          <div style="padding: 12px 16px; border-radius: 8px; background: #e5f8ef; color: #1c9d63; font-weight: 500;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <header class="page-header">
       <div>
-        <h1>Ocorrências</h1>
-        <p>Chamados abertos por moradores</p>
+        <h1>Minhas Ocorrências</h1>
+        <p>Chamados e solicitações abertas por você</p>
       </div>
-      <a href="{% url 'abrir_ocorrencia' %}" class="btn-primary">+ Abrir ocorrência</a>
+      <a href="{% url 'mensagens:nova_ocorrencia' %}" class="btn-primary">+ Abrir ocorrência</a>
     </header>
 
     <!-- Summary cards -->
     <section class="summary-cards">
       <div class="card card-highlight">
         <span class="card-label">Abertas</span>
-        <span class="card-value">1</span>
+        <span class="card-value">{{ total_abertas }}</span>
       </div>
       <div class="card">
         <span class="card-label">Em andamento</span>
-        <span class="card-value">2</span>
+        <span class="card-value">{{ total_em_andamento }}</span>
       </div>
       <div class="card">
         <span class="card-label">Resolvidas</span>
-        <span class="card-value">2</span>
+        <span class="card-value">{{ total_resolvidas }}</span>
       </div>
     </section>
 
     <!-- Filter tabs -->
     <div class="filters">
-      <button class="filter-tab active">Todas</button>
-      <button class="filter-tab">Manutenção</button>
-      <button class="filter-tab">Reclamação</button>
-      <button class="filter-tab">Sugestão</button>
-      <button class="filter-tab">Denúncia</button>
+      <a href="{% url 'mensagens:minhas_ocorrencias' %}" class="filter-tab {% if not categoria_selecionada %}active{% endif %}">Todas</a>
+      <a href="?categoria=MANUTENCAO" class="filter-tab {% if categoria_selecionada == 'MANUTENCAO' %}active{% endif %}">Manutenção</a>
+      <a href="?categoria=RECLAMACAO" class="filter-tab {% if categoria_selecionada == 'RECLAMACAO' %}active{% endif %}">Reclamação</a>
+      <a href="?categoria=SUGESTAO" class="filter-tab {% if categoria_selecionada == 'SUGESTAO' %}active{% endif %}">Sugestão</a>
+      <a href="?categoria=DENUNCIA" class="filter-tab {% if categoria_selecionada == 'DENUNCIA' %}active{% endif %}">Denúncia</a>
     </div>
 
     <!-- Table -->
     <section class="table-card">
-      <h2 class="table-title">Ocorrências (5)</h2>
+      <h2 class="table-title">Ocorrências ({{ ocorrencias|length }})</h2>
 
       <table class="occurrences-table">
         <thead>
           <tr>
             <th>Ocorrência</th>
             <th>Categoria</th>
-            <th>Unidade / Morador</th>
+            <th>Unidade</th>
             <th>Responsável</th>
             <th>Data</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <strong>Vazamento na garagem</strong>
-              <span class="row-desc">Infiltração próxima à vaga 24 do subsolo.</span>
-            </td>
-            <td>Manutenção</td>
-            <td>101 · Bloco A<br><span class="muted">Ana Beatriz Souza</span></td>
-            <td>João Pereira</td>
-            <td>05/08/2026</td>
-            <td><span class="status status-progress">Em andamento</span></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Barulho após 22h</strong>
-              <span class="row-desc">Som alto vindo do apartamento vizinho durante a madrugada.</span>
-            </td>
-            <td>Reclamação</td>
-            <td>302 · Bloco B<br><span class="muted">Rafael Nogueira</span></td>
-            <td class="unassigned">Não atribuído</td>
-            <td>04/08/2026</td>
-            <td><span class="status status-open">Aberta</span></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Lixeiras extras no hall</strong>
-              <span class="row-desc">Sugestão de instalar coleta seletiva por andar.</span>
-            </td>
-            <td>Sugestão</td>
-            <td>405 · Bloco B<br><span class="muted">Pedro Almeida</span></td>
-            <td>Renata Dias</td>
-            <td>01/08/2026</td>
-            <td><span class="status status-resolved">Resolvida</span></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Uso irregular da piscina</strong>
-            </td>
-            <td>Denúncia</td>
-            <td>203 · Bloco C</td>
-            <td>Marcos</td>
-            <td>29/07/2026</td>
-            <td><span class="status status-progress">Em andamento</span></td>
-          </tr>
+          {% for o in ocorrencias %}
+            <tr>
+              <td>
+                <strong>{{ o.titulo }}</strong>
+                <span class="row-desc">{{ o.descricao }}</span>
+                {% if o.imagem %}
+                  <div style="margin-top: 4px;">
+                    <a href="{{ o.imagem.url }}" target="_blank" style="color: var(--purple); font-size: 12px; text-decoration: underline;">
+                      📎 Ver anexo
+                    </a>
+                  </div>
+                {% endif %}
+              </td>
+              <td>{{ o.get_categoria_display }}</td>
+              <td>{{ o.unidade|default:"-" }}</td>
+              <td>
+                {% if o.responsavel %}
+                  {{ o.responsavel.nome }} {{ o.responsavel.sobrenome }}
+                {% else %}
+                  <span class="unassigned">Aguardando atribuição</span>
+                {% endif %}
+              </td>
+              <td>{{ o.criado_em|date:"d/m/Y H:i" }}</td>
+              <td>
+                {% if o.status == 'ABERTA' %}
+                  <span class="status status-open">Aberta</span>
+                {% elif o.status == 'EM_ANDAMENTO' %}
+                  <span class="status status-progress">Em andamento</span>
+                {% elif o.status == 'RESOLVIDA' %}
+                  <span class="status status-resolved">Resolvida</span>
+                {% else %}
+                  <span class="status">{{ o.get_status_display }}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 36px; color: var(--text-secondary);">
+                Você ainda não possui ocorrências nesta categoria.<br>
+                <a href="{% url 'mensagens:nova_ocorrencia' %}" style="color: var(--purple); font-weight: 600; margin-top: 8px; display: inline-block;">
+                  + Clique aqui para abrir a primeira ocorrência
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </section>

@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Apartamento
 
-# Register your models here.
+
+@admin.register(Apartamento)
+class ApartamentoAdmin(admin.ModelAdmin):
+    list_display = ('numero', 'proprietario', 'sindico')
+    search_fields = ('numero',)
+

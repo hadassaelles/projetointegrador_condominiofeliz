@@ -1,30 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Síndico </title>
+    <title>Home | Síndico - Condomínio Feliz</title>
     <link rel="stylesheet" href="{% static '/pessoas/sindico/home.css' %}">
-    
+    <style>
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #7c5cf0 0%, #6a49e0 100%);
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+        .menu-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: #fff;
+            color: #7c5cf0;
+            border: 2px solid #7c5cf0;
+        }
+        .logout-form {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
 </head>
-    <body>
-        <main class="login-card">
-            <h1>Bem-Vindo(a), Síndico(a)!</h1>
-            <p class="subtitle">Painel do Síndico</p>
+<body>
+    <main class="login-card" style="max-width: 480px; margin: 40px auto;">
+        <h1>Bem-Vindo(a), Síndico(a)!</h1>
+        <p class="subtitle">{{ user.get_full_name|default:user.username }} · Painel de Gestão</p>
 
-            <form action="#" method="post">
-                <button type="submit">Gerenciar  Reclamação</button><br>
-                <br>
-                <button type="submit">Gerenciar Sugestão/Denúncia</button><br>
-                <br>
-                <button type="submit">Gerenciar Encomendas</button><br>
-                <br>
-                <button type="submit">Gerenciar Reserva de Espaços</button><br>
-                <br>
-                <button type="submit">Publicar Notícias</button>
-                <br>
-                <button type="submit">Cadastrar Moradores/Funcionários</button>
-            </form>
-    </body>
+        <div class="menu-list">
+            <a href="{% url 'mensagens:gerenciar_ocorrencias' %}" class="menu-btn">
+                ⚠️ Gerenciar Ocorrências (Reclamações / Chamados)
+            </a>
+            <a href="{% url 'reservas:gerenciar' %}" class="menu-btn">
+                📅 Gerenciar Reserva de Espaços
+            </a>
+            <a href="{% url 'encomendas:registrar' %}" class="menu-btn">
+                📦 Controle de Encomendas
+            </a>
+            <a href="{% url 'mensagens:mural' %}" class="menu-btn btn-outline">
+                📢 Mural de Comunicados
+            </a>
+            <a href="{% url 'admin:index' %}" class="menu-btn btn-outline">
+                👥 Cadastrar Moradores / Funcionários (Admin)
+            </a>
+        </div>
+
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">⏻ Encerrar Sessão (Sair)</button>
+        </form>
+    </main>
+</body>
 </html>

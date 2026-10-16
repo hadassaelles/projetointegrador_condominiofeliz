@@ -29,3 +29,15 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f'{self.area} - {self.data}'
+
+
+class Convidado(models.Model):
+    reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE, related_name='convidados')
+    nome = models.CharField(max_length=150)
+
+    class Meta:
+        verbose_name = 'Convidado'
+        verbose_name_plural = 'Convidados'
+
+    def __str__(self):
+        return f"{self.nome} ({self.reserva})"
