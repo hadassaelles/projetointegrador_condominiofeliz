@@ -1,21 +1,22 @@
 # Instalação
 
 ## Requisitos
-**Antes de começar, certifique-se de ter instalado:**
+**- Antes de começar, certifique-se de ter instalado:**
 
 ```
 - Python 3.x
 - Git
 ```
 
-Verificando as instalações
-Verifique se o **Python** está instalado:
+## Verificando as instalações
+
+### Verifique se o **Python** está instalado:
 
 ```
 python --version
 ```
 
-**Caso o Python não esteja instalado**
+### **Caso o Python não esteja instalado**
 Baixe e instale o Python pelo site oficial:
 
 ```
@@ -40,13 +41,13 @@ Python 3.x.x
 ```
 
 
-Verifique se o **Git** está instalado:
+### Verifique se o **Git** está instalado:
 
 ```
 git --version
 ```
 
-**Caso o Git não esteja instalado**
+### **Caso o Git não esteja instalado**
 
 Baixe e instale o Git pelo site oficial:
 
@@ -63,29 +64,29 @@ Resultado esperado:
 git version x.x.x
 ```
 
-**Clonando o projeto**
+## **Clonando o projeto**
 ```
 git clone https://github.com/hadassaelles/projetointegrador_condominiofeliz.git
 
 cd projetointegrador_condominiofeliz
 ```
 
-**Criando ambiente virtual**
+## **Criando ambiente virtual**
 ```
 python -m venv venv
 ```
 
-**Ativando ambiente virtual**
+## **Ativando ambiente virtual**
 ```
 venv\Scripts\activate
 ```
 
-**Instalando Django e dependências**
-O Django e todas as bibliotecas necessárias serão instalados automaticamente através do arquivo requirements.txt.
+## **Instalando Django e dependências**
+- O Django e todas as bibliotecas necessárias serão instalados automaticamente através do arquivo requirements.txt.
 ```
 pip install -r requirements.txt
 ```
-**Verificando a instalação do Django**
+## **Verificando a instalação do Django**
 ```
 django-admin --version
 ```
@@ -95,33 +96,33 @@ ou
 python -m django --version
 ```
 
-**Configurando variáveis de ambiente**
+## **Configurando variáveis de ambiente**
 ```
 copy .env.example .env
 ```
 
-**Aplicando migrações**
+## **Aplicando migrações**
 
 ```
 python manage.py migrate
 ```
 
-**Executando o projeto**
+## **Executando o projeto**
 ```
 python manage.py runserver
 ```
 
-**Acessando o sistema**
+## **Acessando o sistema**
 ```
 http://127.0.0.1:8000
 ```
-**Painel administrativo**
+## **Painel administrativo**
 ```
 http://127.0.0.1:8000/admin
 ```
 
-**Instalação Manual do Django (Opcional)**
-Caso deseje instalar apenas o Django **manualmente**:
+## **Instalação Manual do Django (Opcional)**
+- Caso deseje instalar apenas o Django **manualmente**:
 
 ```
 pip install django
@@ -133,8 +134,8 @@ Verifique:
 django-admin --version
 ```
 
-Critério de Sucesso
-Uma pessoa em um computador novo deve conseguir executar apenas:
+## Critério de Sucesso
+- Uma pessoa em um computador novo deve conseguir executar apenas:
 
 ```
 git clone <repositorio>
