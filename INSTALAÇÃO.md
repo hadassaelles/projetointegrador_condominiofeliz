@@ -22,9 +22,9 @@ git --version
 
 **Clonando o projeto**
 ```
-git clone <repositorio>
+git clone https://github.com/hadassaelles/projetointegrador_condominiofeliz.git
 
-cd <repositorio>
+cd projetointegrador_condominiofeliz
 ```
 
 **Criando ambiente virtual**
