@@ -134,7 +134,23 @@ Verifique:
 django-admin --version
 ```
 
-## Critério de Sucesso
+## 1. Instalar dependências
+```
+pip install -r requirements.txt
+```
+## 2. Criar as tabelas
+```
+python manage.py migrate
+```
+## 3. Popular com dados iniciais de teste (usuários, aptos, áreas)
+```
+python manage.py popular_banco
+```
+## 4. Iniciar o sistema
+```
+python manage.py runserver
+```
+## 5. Critério de Sucesso
 - Uma pessoa em um computador novo deve conseguir executar apenas:
 
 ```
