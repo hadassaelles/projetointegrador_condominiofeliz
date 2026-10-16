@@ -63,7 +63,7 @@ def nova_ocorrencia(request):
         form = OcorrenciaForm(request.POST, request.FILES)
         if form.is_valid():
             msg = form.save(commit=False)
-            msg.remetente = get_pessoa(request.user)
+            msg.remetente = _get_pessoa(request.user)
             msg.save()
             return redirect('home_morador')
     else:
@@ -77,7 +77,7 @@ def nova_sugestao(request):
         form = SugestaoForm(request.POST, request.FILES)
         if form.is_valid():
             msg = form.save(commit=False)
-            msg.remetente = get_pessoa(request.user)
+            msg.remetente = _get_pessoa(request.user)
             msg.tipo = Mensagem.Tipo.SUGESTAO
             msg.save()
             return redirect('home_morador')

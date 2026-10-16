@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo_pagina }}</title>
+</head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>De</th>
+                <th>Tipo</th>
+                <th>Texto</th>
+                <th>Imagem</th>
+                <th>Data</th>
+                <th>Situação</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for m in mensagens %}
+            <tr>
+                <td>{{ m.remetente }}</td>
+                <td>{{ m.get_tipo_display }}</td>
+                <td>{{ m.texto }}</td>
+                <td>
+                    {% if m.imagem %}
+                        <a href="{{ m.imagem.url }}" target="_blank">Ver imagem</a>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+                <td>{{ m.criado_em|date:"d/m/Y H:i" }}</td>
+                <td>{{ m.get_situacao_display }}</td>
+                <td>
+                    {% if m.situacao == 'ABERTA' %}
+                    <form method="post" action="{% url 'mensagens:resolver_mensagem' m.id_mensagem %}">
+                        {% csrf_token %}
+                        <button type="submit">Marcar resolvida</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="7">Nenhum registro.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{% url 'home_sindico' %}">Voltar</a></p>
+</body>
+</html>
