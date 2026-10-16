@@ -14,10 +14,53 @@ Verifique se o **Python** está instalado:
 ```
 python --version
 ```
+
+**Caso o Python não esteja instalado**
+Baixe e instale o Python pelo site oficial:
+
+```
+https://www.python.org/downloads/
+```
+
+Durante a instalação, marque a opção:
+
+```
+Add Python to PATH
+```
+
+Após instalar, verifique:
+
+```
+python --version
+```
+
+Resultado esperado:
+```
+Python 3.x.x
+```
+
+
 Verifique se o **Git** está instalado:
 
 ```
 git --version
+```
+
+**Caso o Git não esteja instalado**
+
+Baixe e instale o Git pelo site oficial:
+
+```
+https://git-scm.com/download/win
+```
+
+Após instalar, verifique:
+```
+git --version
+```
+Resultado esperado:
+```
+git version x.x.x
 ```
 
 **Clonando o projeto**
