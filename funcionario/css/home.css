@@ -4,10 +4,10 @@
   --amber: #f0b94a;
   --bg: #f5f6fa;
   --panel: #ffffff;
-  --border: #ececf1;
+  --border: #b0b0c2;
   --text-main: #1c1d29;
-  --text-muted: #8a8a9a;
-  --text-soft: #b3b3bf;
+  --text-muted: #6c6c7a;
+  --text-soft: #6c6c7a;
   --status-open-bg: #ede9fe;
   --status-open-text: #7c5cd6;
   --status-progress-bg: #fdf2e0;
@@ -36,13 +36,18 @@ body{
 /* ---------- Sidebar ---------- */
 
 .sidebar{
-  width: 250px;
+  width: 20%;
+  height: 100%;
   flex-shrink: 0;
   background: var(--panel);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   padding: 20px 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: column;
 }
 
 .brand{
@@ -126,20 +131,25 @@ body{
   justify-content: center;
   gap: 8px;
   padding: 9px 12px;
-  border: 1px solid var(--border);
+  border: 2px solid rgb(133, 0, 0);
   border-radius: 999px;
-  background: var(--panel);
-  color: var(--text-main);
+  background: #d40a0a;
+  color: white;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
 }
-.logout-btn:hover{ background: #f7f7fa; }
+.logout-btn:hover{ 
+  background: #af58d8; 
+  color:#3c1547;
+  border: 2px solid #72398d;
+}
 .logout-btn svg{ width: 16px; height: 16px; }
 
 /* ---------- Main ---------- */
 
 .main{
+  margin-left: 20%;
   flex: 1;
   padding: 32px 40px 60px;
   max-width: 1080px;
