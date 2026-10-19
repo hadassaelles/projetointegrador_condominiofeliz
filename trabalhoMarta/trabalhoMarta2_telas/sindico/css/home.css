@@ -47,7 +47,6 @@ body{
   position: fixed;
   top: 0;
   left: 0;
-  flex-direction: column;
 }
 
 .brand{
@@ -115,14 +114,6 @@ body{
   border-top: 1px solid var(--border);
 }
 
-.user-card{
-  display: flex;
-  flex-direction: column;
-  padding: 6px 6px 12px 6px;
-  line-height: 1.35;
-}
-.user-name{ font-size: 13.5px; font-weight: 600; color: var(--text-main); }
-.user-role{ font-size: 12px; color: var(--text-muted); }
 
 .logout-btn{
   width: 100%;
@@ -155,6 +146,15 @@ body{
   max-width: 1080px;
 }
 
+.page-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
 .page-header h1{
   font-size: 22px;
   font-weight: 700;
@@ -163,10 +163,20 @@ body{
 .page-header p{
   font-size: 13.5px;
   color: var(--text-muted);
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 24px;
 }
+
+.btn-primary{
+  background: var(--purple-1);
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.btn-primary:hover{ opacity: 0.9; }
 
 /* Cards */
 
@@ -225,6 +235,31 @@ body{
 .card-highlight .card-top svg{ color: #ffffff; }
 .card-highlight .card-value{ color: #ffffff; }
 
+/* Filters */
+
+.filters{
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-tab{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.filter-tab.active{
+  background: var(--purple-1);
+  border-color: var(--purple-1);
+  color: #ffffff;
+}
+
 /* Table panel */
 
 .table-panel{
@@ -248,14 +283,6 @@ body{
   font-weight: 600;
 }
 
-.link{
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--purple-1);
-  text-decoration: none;
-}
-.link:hover{ text-decoration: underline; }
-
 .occurrences-table{
   width: 100%;
   border-collapse: collapse;
@@ -264,8 +291,8 @@ body{
 .occurrences-table thead th{
   text-align: left;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
+  color: black;
+  font-weight: bold;
   text-transform: none;
   padding: 12px 24px;
   border-bottom: 1px solid var(--border);
@@ -274,7 +301,7 @@ body{
 .occurrences-table tbody td{
   padding: 16px 24px;
   font-size: 13.5px;
-  color: var(--text-main);
+  color: rgb(43, 42, 42);
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
 }
@@ -311,6 +338,7 @@ body{
 }
 
 .status-progress{
+  background: var(--status-progress-bg);
   color: var(--status-progress-text);
 }
 
@@ -325,6 +353,7 @@ body{
   .app{ flex-direction: column; }
   .sidebar{
     width: 100%;
+    position: relative;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -333,7 +362,7 @@ body{
   .nav{ flex-direction: row; }
   .nav-item span{ display: none; }
   .sidebar-footer{ display: none; }
-  .main{ padding: 24px 20px 40px; }
+  .main{ margin-left: 0; padding: 24px 20px 40px; }
   .cards{ grid-template-columns: 1fr; }
   .occurrences-table{ font-size: 12.5px; }
 }
