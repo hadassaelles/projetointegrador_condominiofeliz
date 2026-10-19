@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocorrências | Morador</title>
+    <link rel="stylesheet" href="css/ocorrencias.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 10.5L12 3l9 7.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Condomínio Feliz</span>
+          <span class="brand-sub">Home | Síndico</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <!-- Dashboard no Menu Lateral -->
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <!-- Ocorrências no Menu Lateral -->
+        <a href="ocorrencias.html" class="nav-item activate">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          <span>Ocorrências</span>
+        </a>
+        <!-- Reservas no Menu Lateral -->
+        <a href="reservas.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>Reservas</span>
+        </a>
+        <!-- Comunicados no Menu Lateral -->
+        <a href="comunicados.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4.5v-4.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11 18 6v12L6 13" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <span>Comunicados</span>
+        </a>
+        <!-- Cadastro no Menu Lateral -->
+        <a href="cadastro.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="16" y1="11" x2="22" y2="11" />
+          </svg>
+          <span>Cadastro</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="../index.html" class="nav-item">
+          <button class="logout-btn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 12h10m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sair
+          </button>
+        </a>
+
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <header class="page-header">
+        <div>
+          <h1>Ocorrências</h1>
+          <p>Chamados abertos por moradores</p>
+        </div>
+      </header>
+
+      
+      <section class="cards">
+        <div class="card card-highlight">
+          <div class="card-top">
+            <span class="card-label">Abertas</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value">1</span>
+          <span class="card-sub">Minhas abertas</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Em andamento</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value dark">2</span>
+          <span class="card-sub muted">Em atendimento</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Resolvidas</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value dark">2</span>
+          <span class="card-sub muted">Concluídas</span>
+        </div>
+      </section>
+
+      <!-- Filter tabs -->
+      <div class="filters">
+        <button class="filter-tab active">Todas</button>
+        <button class="filter-tab">Manutenção</button>
+        <button class="filter-tab">Reclamação</button>
+        <button class="filter-tab">Sugestão</button>
+        <button class="filter-tab">Denúncia</button>
+      </div>
+
+      <!-- Table Container -->
+      <section class="table-panel">
+        <div class="table-panel-header">
+          <h2>Ocorrências (5)</h2>
+        </div>
+
+        <table class="occurrences-table">
+          <thead>
+            <tr>
+              <th>Ocorrência</th>
+              <th>Categoria</th>
+              <th>Unidade / Morador</th>
+              <th>Responsável</th>
+              <th>Data</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="occ-title">Vazamento na garagem</span>
+                <span class="occ-date">Infiltração próxima à vaga 24</span>
+              </td>
+              <td>Manutenção</td>
+              <td>101 · Bloco A</td>
+              <td>João Pereira</td>
+              <td>05/08/2026</td>
+              <td><span class="status status-progress">Em andamento</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="occ-title">Barulho após 22h</span>
+                <span class="occ-date">Som alto de madrugada</span>
+              </td>
+              <td>Reclamação</td>
+              <td>302 · Bloco B</td>
+              <td>Não atribuído</td>
+              <td>04/08/2026</td>
+              <td><span class="status status-open">Aberta</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="occ-title">Lixeiras extras no hall</span>
+                <span class="occ-date">Coleta seletiva por andar</span>
+              </td>
+              <td>Sugestão</td>
+              <td>405 · Bloco B</td>
+              <td>Renata Dias</td>
+              <td>01/08/2026</td>
+              <td><span class="status status-resolved">Resolvida</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+  <script src="js/ocorrencia.js"></script>
+</body>
+</html>
