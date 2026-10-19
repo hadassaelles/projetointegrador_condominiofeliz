@@ -8,7 +8,7 @@
 </head>
 <body>
 
-      <div class="app">
+  <div class="app">
 
     <!-- Sidebar / Menu Lateral -->
     <aside class="sidebar">
@@ -68,79 +68,79 @@
       </div>
     </aside>
 
-  <main class="main-full">
+    <main class="main">
 
-    <header class="page-header">
-      <div>
-        <h1>Olá, Sindico</h1>
-        <p>Adicionando um novo morador.</p>
+      <header class="page-header">
+        <div>
+          <h1>Olá, Sindico</h1>
+          <p>Adicionando um novo morador.</p>
+        </div>
+      </header>
+
+      <section class="section-title">
+        <h2>Cadastro</h2>
+        <p>Registrar novo usuário no sistema</p>
+      </section>
+
+      <!-- Form/Card de Cadastro -->
+      <div class="form-card">
+        <form id="formCadastro">
+
+          <!-- Dados Pessoais -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome <span class="required">*</span></label>
+              <input type="text" id="nome" placeholder="Maria" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sobrenome">Sobrenome <span class="required">*</span></label>
+              <input type="text" id="sobrenome" placeholder="da Silva" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cpf">CPF <span class="required">*</span></label>
+              <input type="text" id="cpf" placeholder="000.000.000-00" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-mail <span class="required">*</span></label>
+              <input type="email" id="email" placeholder="maria@email.com" required>
+            </div>
+          </div>
+
+          <!-- Seção: Dados da Unidade / Imóvel -->
+          <div class="form-divider">
+            <span>DADOS DO IMÓVEL</span>
+          </div>
+
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="bloco">Bloco <span class="required">*</span></label>
+              <input type="text" id="bloco" placeholder="Bloco A" required>
+            </div>
+
+            <div class="form-group">
+              <label for="apartamento">Apartamento <span class="required">*</span></label>
+              <input type="text" id="apartamento" placeholder="101" required>
+            </div>
+
+            <div class="form-group">
+              <label for="dataEntrada">Data de entrada <span class="required">*</span></label>
+              <input type="date" id="dataEntrada" required>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Cadastrar usuário</button>
+          </div>
+
+        </form>
       </div>
-    </header>
-
-    <section class="section-title">
-      <h2>Cadastro</h2>
-      <p>Registrar novo usuário no sistema</p>
-    </section>
-
-    <!-- Form/Card de Cadastro -->
-    <div class="form-card">
-      <form id="formCadastro">
-
-        <!-- Dados Pessoais -->
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nome">Nome <span class="required">*</span></label>
-            <input type="text" id="nome" placeholder="Maria" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sobrenome">Sobrenome <span class="required">*</span></label>
-            <input type="text" id="sobrenome" placeholder="da Silva" required>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cpf">CPF <span class="required">*</span></label>
-            <input type="text" id="cpf" placeholder="000.000.000-00" required>
-          </div>
-
-          <div class="form-group">
-            <label for="email">E-mail <span class="required">*</span></label>
-            <input type="email" id="email" placeholder="maria@email.com" required>
-          </div>
-        </div>
-
-        <!-- Seção: Dados da Unidade / Imóvel -->
-        <div class="form-divider">
-          <span>DADOS DO IMÓVEL</span>
-        </div>
-
-        <div class="form-row form-row-3">
-          <div class="form-group">
-            <label for="bloco">Bloco <span class="required">*</span></label>
-            <input type="text" id="bloco" placeholder="Bloco A" required>
-          </div>
-
-          <div class="form-group">
-            <label for="apartamento">Apartamento <span class="required">*</span></label>
-            <input type="text" id="apartamento" placeholder="101" required>
-          </div>
-
-          <div class="form-group">
-            <label for="dataEntrada">Data de entrada <span class="required">*</span></label>
-            <input type="date" id="dataEntrada" required>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Cadastrar usuário</button>
-        </div>
-
-      </form>
-    </div>
-
-  </main>
+    </main>
+  </div>
 
 </body>
 </html>
