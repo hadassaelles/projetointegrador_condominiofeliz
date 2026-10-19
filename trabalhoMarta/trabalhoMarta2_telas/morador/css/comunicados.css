@@ -253,8 +253,8 @@ body{
 .occurrences-table thead th{
   text-align: left;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: bold;
+  color: black;
   text-transform: none;
   padding: 12px 24px;
   border-bottom: 1px solid var(--border);
@@ -263,7 +263,7 @@ body{
 .occurrences-table tbody td{
   padding: 16px 24px;
   font-size: 13.5px;
-  color: var(--text-main);
+  color: rgb(43, 42, 42);
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
 }
