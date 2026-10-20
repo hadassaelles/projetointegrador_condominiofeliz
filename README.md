@@ -200,7 +200,8 @@ Principais telas desenvolvidas (visão do Síndico/Administrador):
 ### 7. MODELO CONCEITUAL
 
 
-<img width="808" height="622" alt="WhatsApp Image 2026-09-25 at 19 57 10" src="https://github.com/hadassaelles/projetointegrador_condominiofeliz/trabalhoMarta/banco_corrigido" />
+<img width="1315" height="1160" alt="banco_corrigido" src="https://github.com/user-attachments/assets/6e90cbc8-4611-40fc-9f9e-d1a008192bbf" />
+
 
 
 O modelo conceitual foi desenvolvido utilizando a notação Entidade-Relacionamento (BR Modelo).
