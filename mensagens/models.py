@@ -7,6 +7,7 @@ class Noticia(models.Model):
         MANUTENCAO = 'MANUTENCAO', 'Manutenção'
         REUNIAO = 'REUNIAO', 'Reunião'
         SERVICOS = 'SERVICOS', 'Serviços'
+        SEGURANCA = 'SEGURANCA', 'Segurança'
 
     class Prioridade(models.TextChoices):
         NORMAL = 'NORMAL', 'Normal'

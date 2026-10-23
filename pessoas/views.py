@@ -48,7 +48,25 @@ def home_morador(request):
 
 @user_passes_test(is_sindico)
 def home_sindico(request):
-    return render(request, 'pessoas/home_sindico.html')
+    hoje = timezone.localdate()
+    pessoa = getattr(request.user, 'pessoa', None)
+
+    em_aberto = Mensagem.objects.exclude(situacao=Mensagem.Situacao.RESOLVIDA)
+    reservas_pendentes = (
+        Reserva.objects.filter(status=Reserva.Status.PENDENTE, data__gte=hoje)
+        .order_by('data', 'horas_ini')
+    )
+    recentes = Mensagem.objects.select_related('remetente__morador__apartamento')[:5]
+    sete_dias = timezone.now() - timedelta(days=7)
+
+    return render(request, 'pessoas/home_sindico.html', {
+        'nome': pessoa.nome if pessoa else request.user.username,
+        'qtd_abertas': em_aberto.count(),
+        'qtd_pendentes': reservas_pendentes.count(),
+        'proxima_pendente': reservas_pendentes.first(),
+        'novos_comunicados': Noticia.objects.filter(criado_em__gte=sete_dias).count(),
+        'ocorrencias_recentes': recentes,
+    })
 
 @user_passes_test(is_funcionario)
 def home_funcionario(request):

@@ -6,6 +6,14 @@ class NoticiaForm(forms.ModelForm):
     class Meta:
         model = Noticia
         fields = ['titulo', 'categoria', 'prioridade', 'conteudo']
+        labels = {'titulo': 'Título do comunicado', 'conteudo': 'Mensagem / Detalhes'}
+        widgets = {
+            'titulo': forms.TextInput(attrs={'placeholder': "Ex: Manutenção na bomba d'água"}),
+            'conteudo': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Escreva a mensagem que os moradores irão visualizar...',
+            }),
+        }
 
 
 class OcorrenciaForm(forms.ModelForm):

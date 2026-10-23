@@ -6,44 +6,49 @@ from pessoas.models import Funcionario
 from pessoas.permissions import is_sindico, is_funcionario, get_morador
 from .models import Noticia, Mensagem
 from .forms import NoticiaForm, OcorrenciaForm
+from django.contrib import messages
 
-@login_required
-def mural(request):
-    noticias = Noticia.objects.select_related('autor')
+def _estatisticas_comunicados():
     sete_dias = timezone.now() - timedelta(days=7)
-
-    contexto = {
+    noticias = Noticia.objects.select_related('autor')
+    return {
         'noticias': noticias,
         'novos_7_dias': noticias.filter(criado_em__gte=sete_dias).count(),
         'importantes': noticias.filter(
             prioridade__in=[Noticia.Prioridade.IMPORTANTE, Noticia.Prioridade.URGENTE]
         ).count(),
         'total': noticias.count(),
-        'is_sindico_flag': is_sindico(request.user),
     }
 
-    if is_sindico(request.user):
-        template = 'mensagens/mural.html'
-    elif is_funcionario(request.user):
-        template = 'mensagens/comunicados_funcionario.html'
-    else:
-        template = 'mensagens/comunicados_morador.html'
 
-    return render(request, template, contexto)
+@login_required
+def mural(request):
+    if is_sindico(request.user):
+        return redirect('mensagens:gerenciar_comunicados')
+
+    template = (
+        'mensagens/comunicados_funcionario.html'
+        if is_funcionario(request.user)
+        else 'mensagens/mural.html'  # morador, até chegar o design dele
+    )
+    return render(request, template, _estatisticas_comunicados())
 
 
 @user_passes_test(is_sindico)
-def publicar_noticia(request):
+def gerenciar_comunicados(request):
     if request.method == 'POST':
         form = NoticiaForm(request.POST)
         if form.is_valid():
             noticia = form.save(commit=False)
             noticia.autor = request.user
             noticia.save()
-            return redirect('mensagens:mural')
+            return redirect('mensagens:gerenciar_comunicados')
     else:
         form = NoticiaForm()
-    return render(request, 'mensagens/noticia_form.html', {'form': form, 'titulo_pagina': 'Publicar Comunicado'})
+
+    contexto = _estatisticas_comunicados()
+    contexto['form'] = form
+    return render(request, 'mensagens/comunicados_sindico.html', contexto)
 
 
 @user_passes_test(is_sindico)
@@ -53,10 +58,9 @@ def editar_noticia(request, noticia_id):
         form = NoticiaForm(request.POST, instance=noticia)
         if form.is_valid():
             form.save()
-            return redirect('mensagens:mural')
-    else:
-        form = NoticiaForm(instance=noticia)
-    return render(request, 'mensagens/noticia_form.html', {'form': form, 'titulo_pagina': 'Editar Comunicado'})
+        else:
+            messages.error(request, 'Não foi possível salvar as alterações do comunicado.')
+    return redirect('mensagens:gerenciar_comunicados')
 
 
 @user_passes_test(is_sindico)
@@ -64,8 +68,13 @@ def excluir_noticia(request, noticia_id):
     noticia = get_object_or_404(Noticia, id=noticia_id)
     if request.method == 'POST':
         noticia.delete()
-        return redirect('mensagens:mural')
-    return render(request, 'mensagens/noticia_confirmar_exclusao.html', {'noticia': noticia})
+    return redirect('mensagens:gerenciar_comunicados')
+
+
+@user_passes_test(is_sindico)
+def gerenciar_ocorrencias(request):
+    return render(request, 'mensagens/gerenciar_mensagens.html',
+                  _contexto_gerenciar(Mensagem.objects.all(), 'Ocorrências'))
 
 @login_required
 def minhas_ocorrencias(request):
@@ -108,23 +117,6 @@ def _contexto_gerenciar(mensagens, titulo):
         'funcionarios': Funcionario.objects.all(),
         'situacoes': Mensagem.Situacao.choices,
     }
-
-
-@user_passes_test(is_sindico)
-def gerenciar_ocorrencias(request):
-    mensagens = Mensagem.objects.filter(
-        tipo__in=[Mensagem.Tipo.MANUTENCAO, Mensagem.Tipo.RECLAMACAO, Mensagem.Tipo.DENUNCIA]
-    )
-    return render(request, 'mensagens/gerenciar_mensagens.html',
-                  _contexto_gerenciar(mensagens, 'Manutenção, Reclamações e Denúncias'))
-
-
-@user_passes_test(is_sindico)
-def gerenciar_sugestoes(request):
-    mensagens = Mensagem.objects.filter(tipo=Mensagem.Tipo.SUGESTAO)
-    return render(request, 'mensagens/gerenciar_mensagens.html',
-                  _contexto_gerenciar(mensagens, 'Sugestões'))
-
 
 @user_passes_test(is_sindico)
 def atualizar_mensagem(request, mensagem_id):
