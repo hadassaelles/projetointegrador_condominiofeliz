@@ -1,16 +1,35 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
-from pessoas.permissions import is_sindico, _get_pessoa
+from datetime import timedelta
+from django.utils import timezone
+from pessoas.models import Funcionario
+from pessoas.permissions import is_sindico, is_funcionario, get_morador
 from .models import Noticia, Mensagem
-from .forms import NoticiaForm, OcorrenciaForm, SugestaoForm
+from .forms import NoticiaForm, OcorrenciaForm
 
 @login_required
 def mural(request):
-    noticias = Noticia.objects.all()
-    return render(request, 'mensagens/mural.html', {
+    noticias = Noticia.objects.select_related('autor')
+    sete_dias = timezone.now() - timedelta(days=7)
+
+    contexto = {
         'noticias': noticias,
+        'novos_7_dias': noticias.filter(criado_em__gte=sete_dias).count(),
+        'importantes': noticias.filter(
+            prioridade__in=[Noticia.Prioridade.IMPORTANTE, Noticia.Prioridade.URGENTE]
+        ).count(),
+        'total': noticias.count(),
         'is_sindico_flag': is_sindico(request.user),
-    })
+    }
+
+    if is_sindico(request.user):
+        template = 'mensagens/mural.html'
+    elif is_funcionario(request.user):
+        template = 'mensagens/comunicados_funcionario.html'
+    else:
+        template = 'mensagens/comunicados_morador.html'
+
+    return render(request, template, contexto)
 
 
 @user_passes_test(is_sindico)
@@ -48,51 +67,73 @@ def excluir_noticia(request, noticia_id):
         return redirect('mensagens:mural')
     return render(request, 'mensagens/noticia_confirmar_exclusao.html', {'noticia': noticia})
 
-@user_passes_test(is_sindico)
-def resolver_mensagem(request, mensagem_id):
-    mensagem = get_object_or_404(Mensagem, id_mensagem=mensagem_id)
-    if request.method == 'POST':
-        mensagem.situacao = Mensagem.Situacao.RESOLVIDA
-        mensagem.save()
-    return redirect(request.META.get('HTTP_REFERER', 'home_sindico'))
-
-
 @login_required
-def nova_ocorrencia(request):
+def minhas_ocorrencias(request):
+    morador = get_morador(request.user)
+    if morador is None:
+        return redirect('redirecionar_apos_login')
+
+    base = Mensagem.objects.filter(remetente_id=morador.pk).select_related('responsavel')
+
     if request.method == 'POST':
         form = OcorrenciaForm(request.POST, request.FILES)
         if form.is_valid():
             msg = form.save(commit=False)
-            msg.remetente = _get_pessoa(request.user)
+            msg.remetente_id = morador.pk
             msg.save()
-            return redirect('home_morador')
+            return redirect('mensagens:minhas_ocorrencias')
     else:
         form = OcorrenciaForm()
-    return render(request, 'mensagens/mensagem_form.html', {'form': form, 'titulo_pagina': 'Reclamação / Denúncia'})
+
+    filtro = request.GET.get('tipo', '')
+    lista = base.filter(tipo=filtro) if filtro in Mensagem.Tipo.values else base
+
+    return render(request, 'mensagens/ocorrencias_morador.html', {
+        'form': form,
+        'ocorrencias': lista,
+        'total': lista.count(),
+        'qtd_abertas': base.filter(situacao=Mensagem.Situacao.ABERTA).count(),
+        'qtd_andamento': base.filter(situacao=Mensagem.Situacao.EM_ANDAMENTO).count(),
+        'qtd_resolvidas': base.filter(situacao=Mensagem.Situacao.RESOLVIDA).count(),
+        'filtro': filtro,
+        'tipos': Mensagem.Tipo.choices,
+        'unidade': morador.apartamento.numero,
+    })
 
 
-@login_required
-def nova_sugestao(request):
-    if request.method == 'POST':
-        form = SugestaoForm(request.POST, request.FILES)
-        if form.is_valid():
-            msg = form.save(commit=False)
-            msg.remetente = _get_pessoa(request.user)
-            msg.tipo = Mensagem.Tipo.SUGESTAO
-            msg.save()
-            return redirect('home_morador')
-    else:
-        form = SugestaoForm()
-    return render(request, 'mensagens/mensagem_form.html', {'form': form, 'titulo_pagina': 'Sugestão'})
+def _contexto_gerenciar(mensagens, titulo):
+    return {
+        'mensagens': mensagens.select_related('remetente', 'responsavel'),
+        'titulo_pagina': titulo,
+        'funcionarios': Funcionario.objects.all(),
+        'situacoes': Mensagem.Situacao.choices,
+    }
 
 
 @user_passes_test(is_sindico)
 def gerenciar_ocorrencias(request):
-    mensagens = Mensagem.objects.filter(tipo__in=[Mensagem.Tipo.RECLAMACAO, Mensagem.Tipo.DENUNCIA])
-    return render(request, 'mensagens/gerenciar_mensagens.html', {'mensagens': mensagens, 'titulo_pagina': 'Reclamações e Denúncias'})
+    mensagens = Mensagem.objects.filter(
+        tipo__in=[Mensagem.Tipo.MANUTENCAO, Mensagem.Tipo.RECLAMACAO, Mensagem.Tipo.DENUNCIA]
+    )
+    return render(request, 'mensagens/gerenciar_mensagens.html',
+                  _contexto_gerenciar(mensagens, 'Manutenção, Reclamações e Denúncias'))
 
 
 @user_passes_test(is_sindico)
 def gerenciar_sugestoes(request):
     mensagens = Mensagem.objects.filter(tipo=Mensagem.Tipo.SUGESTAO)
-    return render(request, 'mensagens/gerenciar_mensagens.html', {'mensagens': mensagens, 'titulo_pagina': 'Sugestões'})
+    return render(request, 'mensagens/gerenciar_mensagens.html',
+                  _contexto_gerenciar(mensagens, 'Sugestões'))
+
+
+@user_passes_test(is_sindico)
+def atualizar_mensagem(request, mensagem_id):
+    mensagem = get_object_or_404(Mensagem, id_mensagem=mensagem_id)
+    if request.method == 'POST':
+        situacao = request.POST.get('situacao')
+        if situacao in Mensagem.Situacao.values:
+            mensagem.situacao = situacao
+        responsavel_id = request.POST.get('responsavel')
+        mensagem.responsavel = Funcionario.objects.filter(pk=responsavel_id).first() if responsavel_id else None
+        mensagem.save()
+    return redirect(request.META.get('HTTP_REFERER', 'home_sindico'))

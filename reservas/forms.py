@@ -1,13 +1,9 @@
 from datetime import date
 from django import forms
 from .models import Reserva
+from .areas import AREAS_COMUNS
 
-LOCAIS_DISPONIVEIS = [
-    ('Salão de Festas', '🎉 Salão de Festas'),
-    ('Churrasqueira', '🔥 Churrasqueira'),
-    ('Quadra Poliesportiva', '🏆 Quadra Poliesportiva'),
-    ('Piscina', '🌊 Piscina'),
-]
+LOCAIS_DISPONIVEIS = [(a['nome'], a['nome']) for a in AREAS_COMUNS]
 
 
 class ReservaForm(forms.ModelForm):

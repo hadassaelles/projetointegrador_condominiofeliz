@@ -1,23 +1,14 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ titulo_pagina }}</title>
-</head>
+<head><meta charset="UTF-8"><title>{{ titulo_pagina }}</title></head>
 <body>
     <h1>{{ titulo_pagina }}</h1>
 
     <table border="1" cellpadding="6">
         <thead>
             <tr>
-                <th>De</th>
-                <th>Tipo</th>
-                <th>Texto</th>
-                <th>Imagem</th>
-                <th>Data</th>
-                <th>Situação</th>
-                <th></th>
+                <th>De</th><th>Categoria</th><th>Título</th><th>Descrição</th>
+                <th>Imagem</th><th>Data</th><th>Responsável / Situação</th>
             </tr>
         </thead>
         <tbody>
@@ -25,23 +16,26 @@
             <tr>
                 <td>{{ m.remetente }}</td>
                 <td>{{ m.get_tipo_display }}</td>
+                <td>{{ m.titulo|default:"—" }}</td>
                 <td>{{ m.texto }}</td>
-                <td>
-                    {% if m.imagem %}
-                        <a href="{{ m.imagem.url }}" target="_blank">Ver imagem</a>
-                    {% else %}
-                        —
-                    {% endif %}
-                </td>
+                <td>{% if m.imagem %}<a href="{{ m.imagem.url }}" target="_blank">Ver imagem</a>{% else %}—{% endif %}</td>
                 <td>{{ m.criado_em|date:"d/m/Y H:i" }}</td>
-                <td>{{ m.get_situacao_display }}</td>
                 <td>
-                    {% if m.situacao == 'ABERTA' %}
-                    <form method="post" action="{% url 'mensagens:resolver_mensagem' m.id_mensagem %}">
+                    <form method="post" action="{% url 'mensagens:atualizar_mensagem' m.id_mensagem %}">
                         {% csrf_token %}
-                        <button type="submit">Marcar resolvida</button>
+                        <select name="responsavel">
+                            <option value="">Não atribuído</option>
+                            {% for f in funcionarios %}
+                            <option value="{{ f.pk }}" {% if m.responsavel_id == f.pk %}selected{% endif %}>{{ f }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="situacao">
+                            {% for valor, rotulo in situacoes %}
+                            <option value="{{ valor }}" {% if m.situacao == valor %}selected{% endif %}>{{ rotulo }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Salvar</button>
                     </form>
-                    {% endif %}
                 </td>
             </tr>
         {% empty %}

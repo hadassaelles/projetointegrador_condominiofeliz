@@ -5,6 +5,6 @@ app_name = 'encomendas'
 
 urlpatterns = [
     path('registrar/', views.registrar_encomenda, name='registrar'),
-    path('<int:encomenda_id>/retirada/', views.marcar_retirada, name='marcar_retirada'),
+    path('<int:encomenda_id>/entrega/', views.registrar_entrega, name='registrar_entrega'),
     path('minhas/', views.minhas_encomendas, name='minhas'),
 ]

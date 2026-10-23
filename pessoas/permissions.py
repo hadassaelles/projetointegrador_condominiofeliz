@@ -24,3 +24,7 @@ def get_morador(user):
     if pessoa and hasattr(pessoa, 'morador'):
         return pessoa.morador
     return None
+
+def get_funcionario(user):
+    pessoa = getattr(user, 'pessoa', None)
+    return getattr(pessoa, 'funcionario', None) if pessoa else None

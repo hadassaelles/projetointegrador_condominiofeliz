@@ -1,26 +1,143 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Funcionário</title>
-    <link rel="stylesheet" href="{% static 'pessoas/homeSindico.css' %}">
+    <link rel="stylesheet" href="{% static 'pessoas/homeFuncionario.css' %}">
 </head>
 <body>
-    <main class="login-card">
-        <h1>Bem-Vindo(a), Funcionário(a)!</h1>
-        <p class="subtitle">Painel do Funcionário</p>
 
-        <nav>
-            <a class="botao" href="{% url 'encomendas:registrar' %}">Registrar Encomenda</a>
-            <a class="botao" href="{% url 'reservas:do_dia' %}">Ver Reservas do Dia</a>
-            <a class="botao" href="{% url 'mensagens:mural' %}">Ver Mural de Comunicados</a>
-        </nav>
+  <div class="app">
 
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 10.5L12 3l9 7.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Residencial</span>
+          <span class="brand-sub">Home | Funcionário</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="{% url 'home_funcionario' %}" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="{% url 'encomendas:registrar' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Encomendas</span>
+        </a>
+        <a href="{% url 'reservas:do_dia' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>Reservas</span>
+        </a>
+        <a href="{% url 'mensagens:mural' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4.5v-4.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11 18 6v12L6 13" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <span>Comunicados</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <span class="user-name">{{ nome_completo }}</span>
+          <span class="user-role">{{ cargo }}</span>
+        </div>
         <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Sair</button>
+          {% csrf_token %}
+          <button type="submit" class="logout-btn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 12h10m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sair
+          </button>
         </form>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <header class="page-header">
+        <h1>Olá, {{ nome }}!</h1>
+        <p>Resumo, condomínio feliz!</p>
+      </header>
+
+      <section class="cards">
+        <div class="card card-highlight">
+          <div class="card-top">
+            <span class="card-label">Encomendas aguardando</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <span class="card-value">{{ qtd_pendentes }}</span>
+          <span class="card-sub">Aguardando retirada</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Reservas agendadas</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </div>
+          <span class="card-value dark">{{ qtd_reservas }}</span>
+          <span class="card-sub muted">
+            {% if proxima_reserva %}{{ proxima_reserva.local }} · {{ proxima_reserva.data|date:"d/m" }}{% else %}Nenhuma reserva futura{% endif %}
+          </span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Comunicados novos</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4.5v-4.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11 18 6v12L6 13" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="card-value dark">{{ novos_comunicados }}</span>
+          <span class="card-sub muted">Últimos 7 dias</span>
+        </div>
+      </section>
+
+      <section class="table-panel">
+        <div class="table-panel-header">
+          <h2>Encomendas aguardando retirada</h2>
+          <a href="{% url 'encomendas:registrar' %}" class="link">Ver todas</a>
+        </div>
+
+        <table class="occurrences-table">
+          <thead>
+            <tr>
+              <th>Encomenda</th>
+              <th>Morador</th>
+              <th>Unidade</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in encomendas_recentes %}
+            <tr>
+              <td>
+                <span class="occ-title">{{ e.descricao }}</span>
+                <span class="occ-date">{{ e.recebido_em|date:"d/m/Y" }}</span>
+              </td>
+              <td>{% if e.morador %}{{ e.morador.nome }} {{ e.morador.sobrenome }}{% else %}—{% endif %}</td>
+              <td>Apto {{ e.apartamento.numero }}</td>
+              <td><span class="status status-progress">Aguardando retirada</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">Nenhuma encomenda aguardando retirada.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
     </main>
+  </div>
+
 </body>
 </html>

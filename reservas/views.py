@@ -4,7 +4,7 @@ from django.utils import timezone
 from pessoas.permissions import is_sindico, is_funcionario, get_morador
 from .models import Reserva
 from .forms import ReservaForm
-
+from .areas import AREAS_COMUNS
 
 @login_required
 def dashboard_morador(request):
@@ -61,7 +61,13 @@ def cancelar_reserva(request, reserva_id):
 @user_passes_test(is_funcionario)
 def reservas_do_dia(request):
     hoje = timezone.localdate()
-    reservas = Reserva.objects.filter(data=hoje).exclude(
-        status=Reserva.Status.CANCELADA
-    ).select_related('apartamento', 'responsavel')
-    return render(request, 'reservas/reservas_dia.html', {'reservas': reservas, 'hoje': hoje})
+    reservas = (
+        Reserva.objects.filter(data__gte=hoje)
+        .select_related('apartamento', 'responsavel')
+        .order_by('data', 'horas_ini')
+    )
+    return render(request, 'reservas/reservas_funcionario.html', {
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+        'hoje': hoje,
+    })
