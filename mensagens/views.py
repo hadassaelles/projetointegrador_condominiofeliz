@@ -29,7 +29,7 @@ def mural(request):
     template = (
         'mensagens/comunicados_funcionario.html'
         if is_funcionario(request.user)
-        else 'mensagens/mural.html'  # morador, até chegar o design dele
+        else 'mensagens/comunicados_morador.html'
     )
     return render(request, template, _estatisticas_comunicados())
 
@@ -73,8 +73,21 @@ def excluir_noticia(request, noticia_id):
 
 @user_passes_test(is_sindico)
 def gerenciar_ocorrencias(request):
-    return render(request, 'mensagens/gerenciar_mensagens.html',
-                  _contexto_gerenciar(Mensagem.objects.all(), 'Ocorrências'))
+    base = Mensagem.objects.select_related('remetente__morador__apartamento', 'responsavel')
+    filtro = request.GET.get('tipo', '')
+    lista = base.filter(tipo=filtro) if filtro in Mensagem.Tipo.values else base
+
+    return render(request, 'mensagens/ocorrencias_sindico.html', {
+        'ocorrencias': lista,
+        'total': lista.count(),
+        'qtd_abertas': base.filter(situacao=Mensagem.Situacao.ABERTA).count(),
+        'qtd_andamento': base.filter(situacao=Mensagem.Situacao.EM_ANDAMENTO).count(),
+        'qtd_resolvidas': base.filter(situacao=Mensagem.Situacao.RESOLVIDA).count(),
+        'filtro': filtro,
+        'tipos': Mensagem.Tipo.choices,
+        'funcionarios': Funcionario.objects.all(),
+        'situacoes': Mensagem.Situacao.choices,
+    })
 
 @login_required
 def minhas_ocorrencias(request):
@@ -108,15 +121,6 @@ def minhas_ocorrencias(request):
         'tipos': Mensagem.Tipo.choices,
         'unidade': morador.apartamento.numero,
     })
-
-
-def _contexto_gerenciar(mensagens, titulo):
-    return {
-        'mensagens': mensagens.select_related('remetente', 'responsavel'),
-        'titulo_pagina': titulo,
-        'funcionarios': Funcionario.objects.all(),
-        'situacoes': Mensagem.Situacao.choices,
-    }
 
 @user_passes_test(is_sindico)
 def atualizar_mensagem(request, mensagem_id):

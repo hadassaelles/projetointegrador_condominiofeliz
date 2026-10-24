@@ -70,7 +70,7 @@
         </div>
       </header>
 
-      <!-- Resumo / Cards (contexto da view mural) -->
+      <!-- Resumo / Cards -->
       <section class="cards">
         <div class="card card-highlight">
           <div class="card-top">
@@ -78,7 +78,7 @@
             <svg viewBox="0 0 24 24" fill="none"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4.5v-4.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11 18 6v12L6 13" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
           </div>
           <span class="card-value">{{ novos_7_dias }}</span>
-          <span class="card-sub">Publicados recentemente</span>
+          <span class="card-sub">Publicados na última semana</span>
         </div>
 
         <div class="card">
@@ -120,25 +120,24 @@
             {% for n in noticias %}
             <tr>
               <td>
-                {# AJUSTE se os campos do model Noticia tiverem outro nome (titulo / conteudo) #}
                 <span class="occ-title">{{ n.titulo }}</span>
-                <span class="occ-date">{{ n.conteudo|truncatechars:120 }}</span>
+                <span class="occ-date">{{ n.conteudo|truncatechars:140 }}</span>
               </td>
-              {# AJUSTE se o model não tiver o campo categoria #}
-              <td>{{ n.categoria|default:"—" }}</td>
-              <td>{{ n.autor.get_full_name|default:n.autor.username }}</td>
+              <td>{{ n.get_categoria_display }}</td>
+              <td>{{ n.autor_nome }}</td>
               <td>{{ n.criado_em|date:"d/m/Y" }}</td>
               <td>
-                {# AJUSTE os valores 'urgente' / 'importante' se o seu TextChoices usar outros valores #}
-                <span class="status {% if n.prioridade == 'urgente' %}status-progress{% elif n.prioridade == 'importante' %}status-open{% else %}status-resolved{% endif %}">
-                  {{ n.get_prioridade_display }}
-                </span>
+                {% if n.prioridade == 'URGENTE' %}
+                  <span class="status status-progress">Urgente</span>
+                {% elif n.prioridade == 'IMPORTANTE' %}
+                  <span class="status status-open">Importante</span>
+                {% else %}
+                  <span class="status status-resolved">Normal</span>
+                {% endif %}
               </td>
             </tr>
             {% empty %}
-            <tr>
-              <td colspan="5">Nenhum comunicado publicado até o momento.</td>
-            </tr>
+            <tr><td colspan="5">Nenhum comunicado publicado até o momento.</td></tr>
             {% endfor %}
           </tbody>
         </table>

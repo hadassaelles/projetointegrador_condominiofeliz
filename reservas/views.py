@@ -36,8 +36,11 @@ def nova_reserva(request):
 
 @user_passes_test(is_sindico)
 def gerenciar_reservas(request):
-    reservas = Reserva.objects.select_related('apartamento', 'responsavel').all()
-    return render(request, 'reservas/gerenciar_reservas.html', {'reservas': reservas})
+    reservas = Reserva.objects.select_related('apartamento', 'responsavel')
+    return render(request, 'reservas/reservas_sindico.html', {
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+    })
 
 
 @user_passes_test(is_sindico)
