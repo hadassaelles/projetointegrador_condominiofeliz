@@ -13,6 +13,7 @@ class Reserva(models.Model):
     responsavel = models.ForeignKey(
         'pessoas.Morador', on_delete=models.CASCADE, related_name='reservas'
     )
+    observacoes = models.TextField(blank=True, default='')
     data = models.DateField()
     local = models.CharField(max_length=50)
     quant_pessoas = models.PositiveIntegerField()

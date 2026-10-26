@@ -5,22 +5,16 @@ from pessoas.permissions import is_sindico, is_funcionario, get_morador
 from .models import Reserva
 from .forms import ReservaForm
 from .areas import AREAS_COMUNS
+from django.contrib import messages
 
 @login_required
 def dashboard_morador(request):
-    context = {
-        'reservas': Reserva.objects.select_related('apartamento', 'responsavel').all(),
-    }
-    return render(request, 'reservas/reservas_morador.html', context)
-
-
-@login_required
-def nova_reserva(request):
     morador = get_morador(request.user)
-    if morador is None:
-        return redirect('reservas:dashboard_morador')
+    hoje = timezone.localdate()
 
     if request.method == 'POST':
+        if morador is None:
+            return redirect('redirecionar_apos_login')
         form = ReservaForm(request.POST)
         if form.is_valid():
             reserva = form.save(commit=False)
@@ -28,11 +22,22 @@ def nova_reserva(request):
             reserva.apartamento = morador.apartamento
             reserva.status = Reserva.Status.PENDENTE
             reserva.save()
+            messages.success(request, 'Reserva solicitada! Aguarde a confirmação do síndico.')
             return redirect('reservas:dashboard_morador')
     else:
         form = ReservaForm()
-    return render(request, 'reservas/nova_reserva.html', {'form': form})
 
+    reservas = (
+        Reserva.objects.filter(data__gte=hoje)
+        .select_related('apartamento', 'responsavel')
+        .order_by('data', 'horas_ini')
+    )
+    return render(request, 'reservas/reservas_morador.html', {
+        'form': form,
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+        'pode_reservar': morador is not None,
+    })
 
 @user_passes_test(is_sindico)
 def gerenciar_reservas(request):

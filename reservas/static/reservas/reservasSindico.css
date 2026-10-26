@@ -437,3 +437,4 @@ dialog.modal::backdrop {
 .btn-sm{ padding: 6px 12px; font-size: 12px; }
 .btn-danger{ color: #d94b56; border-color: #d94b56; }
 .btn-danger:hover{ background: #fbe7e9; color: #d94b56; }
+.occ-date{ display: block; font-size: 12px; color: var(--text-soft); margin-top: 2px; }

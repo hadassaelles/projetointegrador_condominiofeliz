@@ -68,46 +68,35 @@
           <h1>Reservas</h1>
           <p>Áreas comuns do condomínio</p>
         </div>
-        <button class="btn-primary" id="btnNovaReserva" type="button">+ Nova reserva</button>
+        {% if pode_reservar %}
+        <button type="button" class="btn-primary" id="btnNovaReserva">+ Nova reserva</button>
+        {% endif %}
       </header>
 
-      {# TODO: trocar estes cards fixos pelos dados do backend (áreas e capacidades) quando a view for conectada #}
+      {% for m in messages %}<p class="alerta">{{ m }}</p>{% endfor %}
+
+      <!-- Cards de Áreas Comuns -->
       <section class="cards area-cards">
+        {% for a in areas %}
         <div class="card">
           <div class="card-top">
-            <span class="card-label">Salão de festas</span>
-            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <span class="card-label">{{ a.nome }}</span>
+            {% if a.chave == 'salao' %}
+              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {% elif a.chave == 'churrasqueira' %}
+              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {% elif a.chave == 'academia' %}
+              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M6.5 6.5h11M6.5 17.5h11M4 9.5v5M20 9.5v5M8 4.5v15M16 4.5v15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {% elif a.chave == 'piscina' %}
+              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M2 12c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2M2 17c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {% elif a.chave == 'quadra' %}
+              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.7"/></svg>
+            {% endif %}
           </div>
-          <span class="card-value dark">80</span>
+          <span class="card-value dark">{{ a.capacidade }}</span>
           <span class="card-sub muted">Capacidade máxima</span>
         </div>
-
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">Churrasqueira</span>
-            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          </div>
-          <span class="card-value">25</span>
-          <span class="card-sub">Capacidade máxima</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">Piscina</span>
-            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M2 12c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2M2 17c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          </div>
-          <span class="card-value dark">40</span>
-          <span class="card-sub muted">Capacidade máxima</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">Quadra</span>
-            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.7"/></svg>
-          </div>
-          <span class="card-value dark">20</span>
-          <span class="card-sub muted">Capacidade máxima</span>
-        </div>
+        {% endfor %}
       </section>
 
       <!-- Tabela de Agenda -->
@@ -128,39 +117,26 @@
             </tr>
           </thead>
           <tbody>
-            {# TODO: linhas de exemplo. Trocar por {% for r in reservas %} ... {% endfor %} com o contexto da view dashboard_morador #}
+            {% for r in reservas %}
             <tr>
-              <td><span class="occ-title">Salão de festas</span></td>
-              <td>15/08/2026</td>
-              <td>19:00 – 23:00</td>
-              <td>204 · Bloco A</td>
-              <td>Marina Lopes</td>
-              <td><span class="status status-resolved">Confirmada</span></td>
+              <td><span class="occ-title">{{ r.local }}</span></td>
+              <td>{{ r.data|date:"d/m/Y" }}</td>
+              <td>{{ r.horas_ini|time:"H:i" }} – {{ r.horas_final|time:"H:i" }}</td>
+              <td>Apto {{ r.apartamento.numero }}</td>
+              <td>{{ r.responsavel.nome }} {{ r.responsavel.sobrenome }}</td>
+              <td>
+                {% if r.status == 'CONFIRMADA' %}
+                  <span class="status status-resolved">Confirmada</span>
+                {% elif r.status == 'PENDENTE' %}
+                  <span class="status status-progress">Pendente</span>
+                {% else %}
+                  <span class="status status-cancelled">Cancelada</span>
+                {% endif %}
+              </td>
             </tr>
-            <tr>
-              <td><span class="occ-title">Churrasqueira</span></td>
-              <td>09/08/2026</td>
-              <td>12:00 – 17:00</td>
-              <td>101 · Bloco A</td>
-              <td>Ana Beatriz Souza</td>
-              <td><span class="status status-progress">Pendente</span></td>
-            </tr>
-            <tr>
-              <td><span class="occ-title">Quadra</span></td>
-              <td>08/08/2026</td>
-              <td>08:00 – 10:00</td>
-              <td>405 · Bloco B</td>
-              <td>Pedro Almeida</td>
-              <td><span class="status status-resolved">Confirmada</span></td>
-            </tr>
-            <tr>
-              <td><span class="occ-title">Piscina</span></td>
-              <td>10/08/2026</td>
-              <td>14:00 – 16:00</td>
-              <td>506 · Bloco C</td>
-              <td>Diego Martins</td>
-              <td><span class="status status-cancelled">Cancelada</span></td>
-            </tr>
+            {% empty %}
+            <tr><td colspan="6">Nenhuma reserva agendada.</td></tr>
+            {% endfor %}
           </tbody>
         </table>
       </section>
@@ -168,48 +144,52 @@
     </main>
   </div>
 
+  {% if pode_reservar %}
   <!-- Modal Pop-up de Nova Reserva -->
-  <dialog id="modalReserva" class="modal">
+  <dialog id="modalReserva" class="modal" data-abrir="{% if form.errors %}1{% endif %}">
     <div class="modal-header">
       <h2>Nova Reserva</h2>
-      <button id="btnFecharModal" class="btn-close" type="button">&times;</button>
+      <button type="button" id="btnFecharModal" class="btn-close">&times;</button>
     </div>
 
-    {# action vazio = envia para a própria URL. AJUSTE os "name" para bater com os campos do form de reservas (forms.py) #}
-    <form class="modal-body" method="post" action="">
+    <form class="modal-body" method="post" action="{% url 'reservas:dashboard_morador' %}">
       {% csrf_token %}
+      {% for erro in form.non_field_errors %}<p class="field-error">{{ erro }}</p>{% endfor %}
 
       <div class="form-group">
-        <label for="area">Área comum</label>
-        <select id="area" name="area" required>
-          <option value="Salão de festas">Salão de festas</option>
-          <option value="Churrasqueira">Churrasqueira</option>
-          <option value="Academia">Academia</option>
-          <option value="Piscina">Piscina</option>
-          <option value="Quadra">Quadra</option>
-        </select>
+        <label for="{{ form.local.id_for_label }}">{{ form.local.label }}</label>
+        {{ form.local }}
+        {% for erro in form.local.errors %}<span class="field-error">{{ erro }}</span>{% endfor %}
       </div>
 
       <div class="form-group">
-        <label for="dataReserva">Data da reserva</label>
-        <input type="date" id="dataReserva" name="data" required>
+        <label for="{{ form.data.id_for_label }}">{{ form.data.label }}</label>
+        {{ form.data }}
+        {% for erro in form.data.errors %}<span class="field-error">{{ erro }}</span>{% endfor %}
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="horaInicio">Horário de início</label>
-          <input type="time" id="horaInicio" name="hora_inicio" required>
+          <label for="{{ form.horas_ini.id_for_label }}">{{ form.horas_ini.label }}</label>
+          {{ form.horas_ini }}
+          {% for erro in form.horas_ini.errors %}<span class="field-error">{{ erro }}</span>{% endfor %}
         </div>
-
         <div class="form-group">
-          <label for="horaFim">Horário de término</label>
-          <input type="time" id="horaFim" name="hora_fim" required>
+          <label for="{{ form.horas_final.id_for_label }}">{{ form.horas_final.label }}</label>
+          {{ form.horas_final }}
+          {% for erro in form.horas_final.errors %}<span class="field-error">{{ erro }}</span>{% endfor %}
         </div>
       </div>
 
       <div class="form-group">
-        <label for="observacoes">Observações (opcional)</label>
-        <textarea id="observacoes" name="observacoes" rows="3" placeholder="Informações adicionais para a administração..."></textarea>
+        <label for="{{ form.quant_pessoas.id_for_label }}">{{ form.quant_pessoas.label }}</label>
+        {{ form.quant_pessoas }}
+        {% for erro in form.quant_pessoas.errors %}<span class="field-error">{{ erro }}</span>{% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.observacoes.id_for_label }}">{{ form.observacoes.label }}</label>
+        {{ form.observacoes }}
       </div>
 
       <div class="modal-footer">
@@ -218,8 +198,8 @@
       </div>
     </form>
   </dialog>
+  {% endif %}
 
-  <script src="{% static 'reservas/reserva.js' %}"></script>
-
+  <script src="{% static 'reservas/reservas.js' %}"></script>
 </body>
 </html>

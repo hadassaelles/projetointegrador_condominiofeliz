@@ -121,7 +121,10 @@
           <tbody>
             {% for r in reservas %}
             <tr>
-              <td><span class="occ-title">{{ r.local }}</span></td>
+              <td>
+                <span class="occ-title">{{ r.local }}</span>
+                <span class="occ-date">{{ r.quant_pessoas }} pessoas{% if r.observacoes %} · {{ r.observacoes|truncatechars:60 }}{% endif %}</span>
+              </td>
               <td>{{ r.data|date:"d/m/Y" }}</td>
               <td>{{ r.horas_ini|time:"H:i" }} – {{ r.horas_final|time:"H:i" }}</td>
               <td>Apto {{ r.apartamento.numero }}</td>
