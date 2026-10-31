@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo_pagina }}</title>
+</head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for erro in form.non_field_errors %}
+            <p style="color:red;">{{ erro }}</p>
+        {% endfor %}
+
+        {% for campo in form %}
+            <p>
+                <label for="{{ campo.id_for_label }}">{{ campo.label }}</label><br>
+                {{ campo }}
+                {% for erro in campo.errors %}
+                    <br><span style="color:red;">{{ erro }}</span>
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <p><a href="{% url 'home_morador' %}">Cancelar</a></p>
+</body>
+</html>

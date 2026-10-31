@@ -1,0 +1,421 @@
+:root {
+  --purple-1: #7c5cd6;
+  --purple-2: #9b6fe0;
+  --amber: #f0b94a;
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --border: #b0b0c2;
+  --text-main: #1c1d29;
+  --text-muted: #6c6c7a;
+  --text-soft: #6c6c7a;
+  --status-open-bg: #ede9fe;
+  --status-open-text: #7c5cd6;
+  --status-progress-bg: #fdf2e0;
+  --status-progress-text: #b9821f;
+  --status-resolved-bg: #e4f7ea;
+  --status-resolved-text: #2f9e57;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --shadow-soft: 0 1px 2px rgba(20,20,43,0.04), 0 8px 24px -12px rgba(20,20,43,0.08);
+}
+
+/* ---------- Resets Gerais ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar / Menu Lateral ---------- */
+.sidebar {
+  width: 20%;
+  height: 100%;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 22px 6px;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple-2), var(--amber));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.brand-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.brand-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.nav-item:hover {
+  background: #f7f5fd;
+  color: var(--text-main);
+}
+
+.nav-item.active {
+  background: #f2edfd;
+  color: var(--purple-1);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 2px solid rgb(133, 0, 0);
+  border-radius: 999px;
+  background: #d40a0a;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #af58d8;
+  color: #3c1547;
+  border: 2px solid #72398d;
+}
+
+.logout-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Área Principal ---------- */
+.main {
+  margin-left: 20%;
+  flex: 1;
+  padding: 32px 40px 60px;
+  max-width: 1080px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.header-date {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ---------- Título da Seção de Encomendas ---------- */
+.section-title {
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.section-title p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+/* ---------- Painel da Tabela ---------- */
+.table-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.occurrences-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.occurrences-table thead th {
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.occurrences-table tbody td {
+  padding: 16px 24px;
+  font-size: 13.5px;
+  color: rgb(43, 42, 42);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.occurrences-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.occ-title {
+  display: block;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--text-main);
+}
+
+/* ---------- Código de Retirada ---------- */
+.code-badge {
+  display: inline-block;
+  background: #f0ecfc;
+  color: var(--purple-1);
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #d8cdfa;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Campo de Data de Entrega Vazio ---------- */
+.text-empty {
+  color: var(--border);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-block;
+  padding-left: 8px;
+}
+
+/* ---------- Badges de Status ---------- */
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.status-progress {
+  background: var(--status-progress-bg);
+  color: var(--status-progress-text);
+}
+
+.status-resolved {
+  background: var(--status-resolved-bg);
+  color: var(--status-resolved-text);
+}
+
+/* ---------- Responsividade ---------- */
+@media (max-width: 900px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .nav {
+    flex-direction: row;
+  }
+
+  .nav-item span {
+    display: none;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 24px 20px 40px;
+  }
+
+  .occurrences-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Complementos: formulário e botões ---------- */
+.main-wide { max-width: none; }
+
+.form-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px 20px;
+  align-items: end;
+}
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 12.5px; font-weight: 600; color: var(--text-main); }
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--text-main);
+  background: #fff;
+}
+.field input:focus,
+.field select:focus { outline: 2px solid #d8cdfa; border-color: var(--purple-1); }
+.field-error { font-size: 12px; color: #d40a0a; }
+
+.form-actions { display: flex; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2) 50%, var(--amber));
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+.btn-outline {
+  background: #fff;
+  color: var(--purple-1);
+  border: 1px solid var(--purple-1);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-outline:hover { background: #f2edfd; }
+
+.entrega-form { display: flex; gap: 8px; align-items: center; }
+.entrega-form input[type="datetime-local"] {
+  padding: 7px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-family: inherit;
+}
+
+.table-scroll { overflow-x: auto; }
+
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .col-4, .col-6 { grid-column: auto; }
+}
