@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocorrências | Síndico</title>
+    <link rel="stylesheet" href="{% static 'mensagens/ocorrenciasSindico.css' %}">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 10.5L12 3l9 7.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Condomínio Feliz</span>
+          <span class="brand-sub">Home | Síndico</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="{% url 'home_sindico' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="{% url 'mensagens:gerenciar_ocorrencias' %}" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          <span>Ocorrências</span>
+        </a>
+        <a href="{% url 'reservas:gerenciar' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>Reservas</span>
+        </a>
+        <a href="{% url 'mensagens:gerenciar_comunicados' %}" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4.5v-4.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11 18 6v12L6 13" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <span>Comunicados</span>
+        </a>
+        <!-- Provisório: troca pela rota quando o design de cadastro chegar -->
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="16" y1="11" x2="22" y2="11" />
+          </svg>
+          <span>Cadastro</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="logout-btn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 12h10m0 0-3-3m3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sair
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <header class="page-header">
+        <div>
+          <h1>Ocorrências</h1>
+          <p>Chamados abertos por moradores</p>
+        </div>
+      </header>
+
+      <section class="cards">
+        <div class="card card-highlight">
+          <div class="card-top">
+            <span class="card-label">Abertas</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value">{{ qtd_abertas }}</span>
+          <span class="card-sub">Aguardando atendimento</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Em andamento</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value">{{ qtd_andamento }}</span>
+          <span class="card-sub muted">Em atendimento</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Resolvidas</span>
+            <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 3.5 2 20h20L12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor"/></svg>
+          </div>
+          <span class="card-value">{{ qtd_resolvidas }}</span>
+          <span class="card-sub muted">Concluídas</span>
+        </div>
+      </section>
+
+      <!-- Filtros -->
+      <div class="filters">
+        <a href="{% url 'mensagens:gerenciar_ocorrencias' %}" class="filter-tab {% if not filtro %}active{% endif %}">Todas</a>
+        {% for valor, rotulo in tipos %}
+        <a href="?tipo={{ valor }}" class="filter-tab {% if filtro == valor %}active{% endif %}">{{ rotulo }}</a>
+        {% endfor %}
+      </div>
+
+      <!-- Tabela -->
+      <section class="table-panel">
+        <div class="table-panel-header">
+          <h2>Ocorrências ({{ total }})</h2>
+        </div>
+
+        <table class="occurrences-table">
+          <thead>
+            <tr>
+              <th>Ocorrência</th>
+              <th>Categoria</th>
+              <th>Unidade / Morador</th>
+              <th>Responsável</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for o in ocorrencias %}
+            <tr>
+              <td>
+                <span class="occ-title">{{ o.titulo|default:o.texto|truncatechars:50 }}</span>
+                <span class="occ-date">{{ o.texto|truncatechars:80 }}</span>
+              </td>
+              <td>{{ o.get_tipo_display }}</td>
+              <td>
+                {% if o.remetente.morador %}Apto {{ o.remetente.morador.apartamento.numero }}{% else %}—{% endif %}
+                <span class="occ-date">{{ o.remetente.nome }} {{ o.remetente.sobrenome }}</span>
+              </td>
+              <td>{% if o.responsavel %}{{ o.responsavel.nome }} {{ o.responsavel.sobrenome }}{% else %}Não atribuído{% endif %}</td>
+              <td>{{ o.criado_em|date:"d/m/Y" }}</td>
+              <td>
+                {% if o.situacao == 'RESOLVIDA' %}
+                  <span class="status status-resolved">Resolvida</span>
+                {% elif o.situacao == 'EM_ANDAMENTO' %}
+                  <span class="status status-progress">Em andamento</span>
+                {% else %}
+                  <span class="status status-open">Aberta</span>
+                {% endif %}
+              </td>
+              <td>
+                <button type="button" class="btn-secondary btn-sm btn-gerenciar"
+                        data-url="{% url 'mensagens:atualizar_mensagem' o.id_mensagem %}"
+                        data-titulo="{{ o.titulo|default:o.texto }}"
+                        data-descricao="{{ o.texto }}"
+                        data-responsavel="{{ o.responsavel_id|default_if_none:'' }}"
+                        data-situacao="{{ o.situacao }}"
+                        data-imagem="{% if o.imagem %}{{ o.imagem.url }}{% endif %}">Gerenciar</button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">Nenhuma ocorrência encontrada.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: atribuir responsável e mudar o status -->
+  <dialog id="modalGerenciar" class="modal">
+    <div class="modal-header">
+      <h2>Gerenciar ocorrência</h2>
+      <button type="button" id="btnFecharModal" class="btn-close">&times;</button>
+    </div>
+
+    <form class="modal-body" id="formGerenciar" method="post" action="">
+      {% csrf_token %}
+      <p class="occ-title" id="modalTitulo"></p>
+      <p class="occ-date" id="modalDescricao"></p>
+      <p class="occ-date" id="modalImagem" hidden><a id="linkImagem" href="#" target="_blank">Ver imagem anexada</a></p>
+
+      <div class="form-group" style="margin-top: 16px;">
+        <label for="selResponsavel">Responsável</label>
+        <select name="responsavel" id="selResponsavel">
+          <option value="">Não atribuído</option>
+          {% for f in funcionarios %}
+          <option value="{{ f.pk }}">{{ f.nome }} {{ f.sobrenome }} · {{ f.cargo }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="selSituacao">Status</label>
+        <select name="situacao" id="selSituacao">
+          {% for valor, rotulo in situacoes %}
+          <option value="{{ valor }}">{{ rotulo }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+        <button type="submit" class="btn-primary">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{% static 'mensagens/ocorrenciasSindico.js' %}"></script>
+</body>
+</html>

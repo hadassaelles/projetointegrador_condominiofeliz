@@ -1,39 +1,60 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from pessoas.permissions import is_sindico, is_funcionario
-from .models import Area, Reserva
+from pessoas.permissions import is_sindico, is_funcionario, get_morador
+from .models import Reserva
 from .forms import ReservaForm
-
+from .areas import AREAS_COMUNS
+from django.contrib import messages
 
 @login_required
 def dashboard_morador(request):
-    context = {
-        'areas': Area.objects.all(),
-        'reservas': Reserva.objects.select_related('area', 'morador').all(),
-    }
-    return render(request, 'reservas/reservas_morador.html', context)
+    morador = get_morador(request.user)
+    hoje = timezone.localdate()
 
-
-@login_required
-def nova_reserva(request):
     if request.method == 'POST':
+        if morador is None:
+            return redirect('redirecionar_apos_login')
         form = ReservaForm(request.POST)
         if form.is_valid():
             reserva = form.save(commit=False)
-            reserva.morador = request.user
-            reserva.status = Reserva.Status.CONFIRMADA
+            reserva.responsavel = morador
+            reserva.apartamento = morador.apartamento
+            reserva.status = Reserva.Status.PENDENTE
             reserva.save()
+            messages.success(request, 'Reserva solicitada! Aguarde a confirmação do síndico.')
             return redirect('reservas:dashboard_morador')
     else:
         form = ReservaForm()
-    return render(request, 'reservas/nova_reserva.html', {'form': form})
 
+    reservas = (
+        Reserva.objects.filter(data__gte=hoje)
+        .select_related('apartamento', 'responsavel')
+        .order_by('data', 'horas_ini')
+    )
+    return render(request, 'reservas/reservas_morador.html', {
+        'form': form,
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+        'pode_reservar': morador is not None,
+    })
 
 @user_passes_test(is_sindico)
 def gerenciar_reservas(request):
-    reservas = Reserva.objects.select_related('area', 'morador').all()
-    return render(request, 'reservas/gerenciar_reservas.html', {'reservas': reservas})
+    reservas = Reserva.objects.select_related('apartamento', 'responsavel')
+    return render(request, 'reservas/reservas_sindico.html', {
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+    })
+
+
+@user_passes_test(is_sindico)
+def confirmar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+    if request.method == 'POST':
+        reserva.status = Reserva.Status.CONFIRMADA
+        reserva.save()
+    return redirect('reservas:gerenciar')
 
 
 @user_passes_test(is_sindico)
@@ -48,7 +69,13 @@ def cancelar_reserva(request, reserva_id):
 @user_passes_test(is_funcionario)
 def reservas_do_dia(request):
     hoje = timezone.localdate()
-    reservas = Reserva.objects.filter(data=hoje).exclude(
-        status=Reserva.Status.CANCELADA
-    ).select_related('area', 'morador')
-    return render(request, 'reservas/reservas_dia.html', {'reservas': reservas, 'hoje': hoje})
+    reservas = (
+        Reserva.objects.filter(data__gte=hoje)
+        .select_related('apartamento', 'responsavel')
+        .order_by('data', 'horas_ini')
+    )
+    return render(request, 'reservas/reservas_funcionario.html', {
+        'reservas': reservas,
+        'areas': AREAS_COMUNS,
+        'hoje': hoje,
+    })

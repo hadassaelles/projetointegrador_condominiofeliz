@@ -1,179 +1,129 @@
+import sys
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Group
-from pessoas.models import Pessoa, Morador, Sindico, Funcionario, Telefone
+from django.db import transaction
+
 from apartamentos.models import Apartamento
-from reservas.models import Area
+
 from mensagens.models import Comunicado, Ocorrencia
+from pessoas.models import Pessoa, Morador, Sindico, Funcionario
 
 
 class Command(BaseCommand):
-    help = 'Popula o banco de dados com usuários, perfis, apartamentos e dados iniciais de teste.'
+    help = "Cria usuários e dados iniciais (seed) para o projeto."
 
+    @transaction.atomic
     def handle(self, *args, **options):
-        senha_padrao = 'condominio123'
-        self.stdout.write(self.style.NOTICE('Iniciando o povoamento do banco de dados...'))
+        try:
+            self._create_groups()
+            self._create_users()
+            self._create_apartamento()
+            self._create_areas()
+            self._create_demo_contents()
+            self.stdout.write(self.style.SUCCESS(
+                "\n✅ Seed concluído com sucesso!\nUsuários criados (senha: 'condominio123'):\n  • sindico\n  • funcionario\n  • morador\n"))
+        except Exception as exc:
+            self.stderr.write(self.style.ERROR(f"❌ Erro ao executar o seed: {exc}"))
+            sys.exit(1)
 
-        # 1. Grupos
-        grupo_sindico, _ = Group.objects.get_or_create(name='Sindico')
-        grupo_funcionario, _ = Group.objects.get_or_create(name='Funcionario')
-        grupo_morador, _ = Group.objects.get_or_create(name='Morador')
+    def _get_or_create_group(self, name):
+        group, _ = Group.objects.get_or_create(name=name)
+        return group
 
-        # 2. Apartamentos
-        apto_101, _ = Apartamento.objects.get_or_create(numero='101')
-        apto_102, _ = Apartamento.objects.get_or_create(numero='102')
-        apto_201, _ = Apartamento.objects.get_or_create(numero='201')
+    def _create_groups(self):
+        for name in ["Sindico", "Funcionario", "Morador"]:
+            self._get_or_create_group(name)
 
-        # 3. Áreas Comuns para Reservas
-        area_churrasqueira, _ = Area.objects.get_or_create(
-            nome='Churrasqueira Gourmet',
-            defaults={'icone': '🍖', 'capacidade': 25}
+    def _create_user(self, username, group_name, is_staff=False, is_superuser=False):
+        user, created = User.objects.get_or_create(
+            username=username,
+            defaults={"is_staff": is_staff, "is_superuser": is_superuser},
         )
-        area_salao, _ = Area.objects.get_or_create(
-            nome='Salão de Festas',
-            defaults={'icone': '🎉', 'capacidade': 60}
-        )
-        area_piscina, _ = Area.objects.get_or_create(
-            nome='Espaço Piscina / Deck',
-            defaults={'icone': '🏊', 'capacidade': 30}
-        )
-
-        # 4. Usuário: SÍNDICO
-        user_sindico, created = User.objects.get_or_create(
-            username='sindico',
-            defaults={
-                'first_name': 'Carlos',
-                'last_name': 'Administrador',
-                'email': 'sindico@condominiofeliz.com',
-                'is_staff': True,
-                'is_superuser': True,
-            }
-        )
-        user_sindico.set_password(senha_padrao)
-        user_sindico.is_staff = True
-        user_sindico.is_superuser = True
-        user_sindico.save()
-        user_sindico.groups.add(grupo_sindico)
-
-        # Perfil Sindico (Pessoa)
-        sindico_profile = Sindico.objects.filter(user=user_sindico).first()
-        if not sindico_profile:
-            sindico_profile = Sindico.objects.create(
-                user=user_sindico,
-                nome='Carlos',
-                sobrenome='Administrador',
-                cpf='111.111.111-11',
-                email='sindico@condominiofeliz.com',
-            )
-
-        # 5. Usuário: FUNCIONÁRIO
-        user_funcionario, created = User.objects.get_or_create(
-            username='funcionario',
-            defaults={
-                'first_name': 'Marcos',
-                'last_name': 'Porteiro',
-                'email': 'funcionario@condominiofeliz.com',
-                'is_staff': True,
-            }
-        )
-        user_funcionario.set_password(senha_padrao)
-        user_funcionario.is_staff = True
-        user_funcionario.save()
-        user_funcionario.groups.add(grupo_funcionario)
-
-        # Perfil Funcionario (Pessoa)
-        func_profile = Funcionario.objects.filter(user=user_funcionario).first()
-        if not func_profile:
-            func_profile = Funcionario.objects.create(
-                user=user_funcionario,
-                nome='Marcos',
-                sobrenome='Porteiro',
-                cpf='222.222.222-22',
-                email='funcionario@condominiofeliz.com',
-                cargo='Portaria e Segurança',
-                sindico_responsavel=sindico_profile,
-            )
-
-        # 6. Usuário: MORADOR
-        user_morador, created = User.objects.get_or_create(
-            username='morador',
-            defaults={
-                'first_name': 'Hadassa',
-                'last_name': 'Elles',
-                'email': 'morador@condominiofeliz.com',
-            }
-        )
-        user_morador.set_password(senha_padrao)
-        user_morador.save()
-        user_morador.groups.add(grupo_morador)
-
-        # Perfil Morador (Pessoa)
-        morador_profile = Morador.objects.filter(user=user_morador).first()
-        if not morador_profile:
-            morador_profile = Morador.objects.create(
-                user=user_morador,
-                nome='Hadassa',
-                sobrenome='Elles',
-                cpf='333.333.333-33',
-                email='morador@condominiofeliz.com',
-                apartamento=apto_101,
-            )
+        if created:
+            user.set_password("condominio123")
+            user.save()
+            self.stdout.write(f"  • Usuário '{username}' criado.")
         else:
-            morador_profile.apartamento = apto_101
-            morador_profile.save()
+            self.stdout.write(f"  • Usuário '{username}' já existia.")
+        group = Group.objects.get(name=group_name)
+        user.groups.add(group)
+        return user
 
-        # Vincula proprietário do apto 101 ao morador
-        apto_101.proprietario = morador_profile
-        apto_101.sindico = sindico_profile
-        apto_101.save()
+    def _create_users(self):
+        # síndico – staff + superuser
+        self._create_user("sindico", "Sindico", is_staff=True, is_superuser=True)
+        # funcionário – staff
+        self._create_user("funcionario", "Funcionario", is_staff=True)
+        # morador – usuário comum
+        self._create_user("morador", "Morador")
+        self._ensure_profiles()
 
-        # Telefones de exemplo
-        Telefone.objects.get_or_create(
-            pessoa=morador_profile,
-            tipo='Celular',
-            defaults={'numero': '(11) 98765-4321'}
+    def _ensure_profiles(self):
+        user = User.objects.get(username="sindico")
+        if not Sindico.objects.filter(user=user).exists():
+            Sindico.objects.create(user=user, nome="Síndico Demo")
+            self.stdout.write("  • Perfil Sindico criado.")
+        else:
+            self.stdout.write("  • Perfil Sindico já existia.")
+
+        user = User.objects.get(username="funcionario")
+        if not Funcionario.objects.filter(user=user).exists():
+            Funcionario.objects.create(user=user, nome="Funcionário Demo")
+            self.stdout.write("  • Perfil Funcionario criado.")
+        else:
+            self.stdout.write("  • Perfil Funcionario já existia.")
+
+        user = User.objects.get(username="morador")
+        if not Morador.objects.filter(user=user).exists():
+            mor = Morador.objects.create(user=user, nome="Morador Demo")
+            self.stdout.write("  • Perfil Morador criado.")
+        else:
+            mor = Morador.objects.get(user=user)
+            self.stdout.write("  • Perfil Morador já existia.")
+        self.morador = mor
+
+    def _create_apartamento(self):
+        apt, created = Apartamento.objects.get_or_create(
+            numero=101,
+            defaults={"bloco": "A", "valor_condominio": 500},
         )
-        Telefone.objects.get_or_create(
-            pessoa=func_profile,
-            tipo='Portaria',
-            defaults={'numero': '(11) 91234-5678'}
-        )
+        if created:
+            self.stdout.write("  • Apartamento 101 criado.")
+        else:
+            self.stdout.write("  • Apartamento 101 já existia.")
+        sindico = Sindico.objects.get(user__username="sindico")
+        apt.sindico = sindico
+        apt.save()
+        self.morador.apartamento = apt
+        self.morador.save()
 
-        # 7. Dados de demonstração (Comunicado inicial e Ocorrência inicial)
-        Comunicado.objects.get_or_create(
-            titulo='Bem-vindos ao Condomínio Feliz!',
-            defaults={
-                'conteudo': 'Prezados moradores, o sistema de gestão do condomínio está no ar para agendamento de áreas comuns, comunicados e ocorrências.',
-                'autor': user_sindico,
-            }
-        )
+    def _create_areas(self):
+        for name in ["Churrasqueira", "Salão", "Piscina"]:
+            area, created = Area.objects.get_or_create(nome=name)
+            if created:
+                self.stdout.write(f"  • Área '{name}' criada.")
+            else:
+                self.stdout.write(f"  • Área '{name}' já existia.")
 
-        Ocorrencia.objects.get_or_create(
-            titulo='Lâmpada do hall de entrada queimada',
-            defaults={
-                'morador': morador_profile,
-                'categoria': Ocorrencia.Categoria.MANUTENCAO,
-                'descricao': 'A lâmpada principal do hall próximo aos elevadores está piscando e precisa de substituição.',
-                'unidade': 'Apto 101',
-                'status': Ocorrencia.Status.ABERTA,
-            }
-        )
+    def _create_demo_contents(self):
+        if not Comunicado.objects.filter(titulo="Comunicação de Teste").exists():
+            Comunicado.objects.create(
+                titulo="Comunicação de Teste",
+                conteudo="Este é um comunicado de demonstração.",
+                autor=Sindico.objects.get(user__username="sindico"),
+            )
+            self.stdout.write("  • Comunicado de teste criado.")
+        else:
+            self.stdout.write("  • Comunicado de teste já existia.")
 
-        self.stdout.write(self.style.SUCCESS(''))
-        self.stdout.write(self.style.SUCCESS('====================================================='))
-        self.stdout.write(self.style.SUCCESS('   ✔ BANCO DE DADOS POPULADO COM SUCESSO!'))
-        self.stdout.write(self.style.SUCCESS('====================================================='))
-        self.stdout.write(self.style.WARNING(f' Senha para todas as contas: {senha_padrao}'))
-        self.stdout.write(self.style.SUCCESS('-----------------------------------------------------'))
-        self.stdout.write(self.style.SUCCESS(' [SÍNDICO]'))
-        self.stdout.write(f'   Usuário: sindico')
-        self.stdout.write(f'   Acesso:  Painel do Síndico + Django Admin')
-        self.stdout.write(self.style.SUCCESS('-----------------------------------------------------'))
-        self.stdout.write(self.style.SUCCESS(' [FUNCIONÁRIO / PORTARIA]'))
-        self.stdout.write(f'   Usuário: funcionario')
-        self.stdout.write(f'   Acesso:  Painel do Funcionário (Reservas do dia / Encomendas)')
-        self.stdout.write(self.style.SUCCESS('-----------------------------------------------------'))
-        self.stdout.write(self.style.SUCCESS(' [MORADOR]'))
-        self.stdout.write(f'   Usuário: morador')
-        self.stdout.write(f'   Acesso:  Dashboard Morador (Apto 101, Ocorrências, Reservas)')
-        self.stdout.write(self.style.SUCCESS('=====================================================' + '\n'))
+        if not Ocorrencia.objects.filter(titulo="Ocorrência de Teste").exists():
+            Ocorrencia.objects.create(
+                titulo="Ocorrência de Teste",
+                descricao="Descrição da ocorrência de demonstração.",
+                responsavel=self.morador,
+                categoria="GERAL",
+            )
+            self.stdout.write("  • Ocorrência de teste criada.")
+        else:
+            self.stdout.write("  • Ocorrência de teste já existia.")
 
