@@ -37,9 +37,19 @@ def mural(request):
         else 'mensagens/comunicados_morador.html'
     )
     return render(request, template, _estatisticas_comunicados())
+    if is_sindico(request.user):
+        return redirect('mensagens:gerenciar_comunicados')
+
+    template = (
+        'mensagens/comunicados_funcionario.html'
+        if is_funcionario(request.user)
+        else 'mensagens/comunicados_morador.html'
+    )
+    return render(request, template, _estatisticas_comunicados())
 
 
 @user_passes_test(is_sindico)
+def gerenciar_comunicados(request):
 def gerenciar_comunicados(request):
     if request.method == 'POST':
         form = ComunicadoForm(request.POST)
@@ -63,6 +73,9 @@ def editar_noticia(request, noticia_id):
         form = ComunicadoForm(request.POST, instance=comunicado)
         if form.is_valid():
             form.save()
+        else:
+            messages.error(request, 'Não foi possível salvar as alterações do comunicado.')
+    return redirect('mensagens:gerenciar_comunicados')
         else:
             messages.error(request, 'Não foi possível salvar as alterações do comunicado.')
     return redirect('mensagens:gerenciar_comunicados')
