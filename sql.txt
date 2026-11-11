@@ -1,136 +1,106 @@
-DROP TABLE IF EXISTS mensagem CASCADE;
-DROP TABLE IF EXISTS encomenda CASCADE;
-DROP TABLE IF EXISTS convidados CASCADE;
-DROP TABLE IF EXISTS reserva CASCADE;
-DROP TABLE IF EXISTS funcionario CASCADE;
-DROP TABLE IF EXISTS sindico CASCADE;
-DROP TABLE IF EXISTS morador CASCADE;
-DROP TABLE IF EXISTS apartamento CASCADE;
-DROP TABLE IF EXISTS telefone CASCADE;
-DROP TABLE IF EXISTS pessoa CASCADE;
-
+DROP TABLE IF EXISTS
+    convidados, mensagem_destinatario, mensagem, encomenda, reserva, local,
+    morador, apartamento, funcionario, sindico, bloco, telefone, pessoa
+CASCADE;
 
 CREATE TABLE pessoa (
-    id          SERIAL PRIMARY KEY,
-    nome        VARCHAR(100) NOT NULL,
-    sobrenome   VARCHAR(100) NOT NULL,
-    cpf         VARCHAR(14) UNIQUE NOT NULL,
-    email       VARCHAR(150) UNIQUE
+    id         SERIAL PRIMARY KEY,
+    nome       VARCHAR(60)  NOT NULL,
+    sobrenome  VARCHAR(100) NOT NULL,
+    cpf        VARCHAR(14)  NOT NULL UNIQUE,
+    email      VARCHAR(120) UNIQUE
 );
 
 CREATE TABLE telefone (
-    id_telefone SERIAL PRIMARY KEY,
-    id_pessoa   INTEGER NOT NULL,
-    tipo        VARCHAR(30),
-    numero      VARCHAR(20) NOT NULL,
+    id_telefone  SERIAL PRIMARY KEY,
+    tipo         VARCHAR(20) NOT NULL,
+    numero       VARCHAR(20) NOT NULL,
+    id_pessoa    INTEGER NOT NULL REFERENCES pessoa(id) ON DELETE CASCADE
+);
 
-    CONSTRAINT fk_telefone_pessoa
-        FOREIGN KEY (id_pessoa)
-        REFERENCES pessoa(id)
-        ON DELETE CASCADE
+CREATE TABLE sindico (
+    id_pessoa       INTEGER PRIMARY KEY REFERENCES pessoa(id) ON DELETE CASCADE,
+    inicio_mandato  DATE NOT NULL,
+    final_mandato   DATE,
+    status          VARCHAR(20) NOT NULL DEFAULT 'ativo'
+);
+
+CREATE TABLE funcionario (
+    id_pessoa   INTEGER PRIMARY KEY REFERENCES pessoa(id) ON DELETE CASCADE,
+    cargo       VARCHAR(50) NOT NULL,
+    id_sindico  INTEGER REFERENCES sindico(id_pessoa) ON DELETE SET NULL
+);
+
+CREATE TABLE bloco (
+    id_bloco        SERIAL PRIMARY KEY,
+    numero_andares  INTEGER NOT NULL,
+    nome            VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE apartamento (
     id               SERIAL PRIMARY KEY,
-    numero           INTEGER NOT NULL UNIQUE,
-    id_proprietario  INTEGER,
-    id_sindico       INTEGER,
-
-    CONSTRAINT fk_apartamento_proprietario
-        FOREIGN KEY (id_proprietario)
-        REFERENCES pessoa(id),
-
-    CONSTRAINT fk_apartamento_sindico
-        FOREIGN KEY (id_sindico)
-        REFERENCES pessoa(id)
+    numero           VARCHAR(10) NOT NULL,
+    id_bloco         INTEGER NOT NULL REFERENCES bloco(id_bloco),
+    id_proprietario  INTEGER NOT NULL REFERENCES pessoa(id),
+    id_sindico       INTEGER REFERENCES sindico(id_pessoa) ON DELETE SET NULL,
+    UNIQUE (id_bloco, numero)
 );
 
 CREATE TABLE morador (
-    id_pessoa       INTEGER PRIMARY KEY,
-    id_apartamento  INTEGER NOT NULL,
-
-    CONSTRAINT fk_morador_pessoa
-        FOREIGN KEY (id_pessoa)
-        REFERENCES pessoa(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_morador_apartamento
-        FOREIGN KEY (id_apartamento)
-        REFERENCES apartamento(id)
-);
-
-CREATE TABLE sindico (
-    id_pessoa INTEGER PRIMARY KEY,
-
-    CONSTRAINT fk_sindico_pessoa
-        FOREIGN KEY (id_pessoa)
-        REFERENCES pessoa(id)
-        ON DELETE CASCADE
-);
-
-CREATE TABLE funcionario (
-    id_pessoa INTEGER PRIMARY KEY,
-    cargo     VARCHAR(100) NOT NULL,
-
-    CONSTRAINT fk_funcionario_pessoa
-        FOREIGN KEY (id_pessoa)
-        REFERENCES pessoa(id)
-        ON DELETE CASCADE
-);
-
-CREATE TABLE reserva (
-    id_reserva       SERIAL PRIMARY KEY,
-    id_responsavel   INTEGER NOT NULL,
-    data             DATE NOT NULL,
-    hora_inicio      TIME NOT NULL,
-    hora_fim         TIME NOT NULL,
-    local            VARCHAR(150) NOT NULL,
-    quant_pessoas    INTEGER,
-
-    CONSTRAINT fk_reserva_responsavel
-        FOREIGN KEY (id_responsavel)
-        REFERENCES pessoa(id)
-);
-
-CREATE TABLE convidados (
-    id_convidado SERIAL PRIMARY KEY,
-    id_reserva   INTEGER NOT NULL,
-    nome         VARCHAR(150) NOT NULL,
-
-    CONSTRAINT fk_convidado_reserva
-        FOREIGN KEY (id_reserva)
-        REFERENCES reserva(id_reserva)
-        ON DELETE CASCADE
+    id_pessoa       INTEGER PRIMARY KEY REFERENCES pessoa(id) ON DELETE CASCADE,
+    tipo_morador    VARCHAR(30) NOT NULL,
+    data_entrada    DATE NOT NULL,
+    data_saida      DATE,
+    id_apartamento  INTEGER NOT NULL REFERENCES apartamento(id)
 );
 
 CREATE TABLE encomenda (
-    id_encomenda   SERIAL PRIMARY KEY,
-    id_funcionario INTEGER NOT NULL,
-    id_apartamento INTEGER NOT NULL,
-
-    CONSTRAINT fk_encomenda_funcionario
-        FOREIGN KEY (id_funcionario)
-        REFERENCES funcionario(id_pessoa),
-
-    CONSTRAINT fk_encomenda_apartamento
-        FOREIGN KEY (id_apartamento)
-        REFERENCES apartamento(id)
+    id_encomenda      SERIAL PRIMARY KEY,
+    codigo_retirada   VARCHAR(20) NOT NULL,
+    data_entrega      TIMESTAMP NOT NULL,
+    data_recebimento  TIMESTAMP,
+    id_apartamento    INTEGER NOT NULL REFERENCES apartamento(id),
+    id_funcionario    INTEGER NOT NULL REFERENCES funcionario(id_pessoa),
+    id_morador        INTEGER REFERENCES morador(id_pessoa) ON DELETE SET NULL
 );
 
 CREATE TABLE mensagem (
-    id_mensagem  SERIAL PRIMARY KEY,
-    id_emissor   INTEGER NOT NULL,
-    id_receptor  INTEGER NOT NULL,
-    tipo         VARCHAR(30),
-    texto        TEXT,
-    imagem       TEXT,
-    situacao     VARCHAR(20),
+    id_mensagem   SERIAL PRIMARY KEY,
+    tipo          VARCHAR(30) NOT NULL,
+    texto         TEXT NOT NULL,
+    imagem        TEXT,
+    situacao      VARCHAR(20) NOT NULL DEFAULT 'enviada',
+    id_remetente  INTEGER NOT NULL REFERENCES pessoa(id)
+);
 
-    CONSTRAINT fk_mensagem_emissor
-        FOREIGN KEY (id_emissor)
-        REFERENCES pessoa(id),
+CREATE TABLE mensagem_destinatario (
+    id_mensagem  INTEGER NOT NULL REFERENCES mensagem(id_mensagem) ON DELETE CASCADE,
+    id_pessoa    INTEGER NOT NULL REFERENCES pessoa(id) ON DELETE CASCADE,
+    PRIMARY KEY (id_mensagem, id_pessoa)
+);
 
-    CONSTRAINT fk_mensagem_receptor
-        FOREIGN KEY (id_receptor)
-        REFERENCES pessoa(id)
+CREATE TABLE local (
+    id_local         SERIAL PRIMARY KEY,
+    cap_max          INTEGER NOT NULL,
+    hora_abertura    TIME NOT NULL,
+    hora_fechamento  TIME NOT NULL,
+    taxa_limpeza     NUMERIC(10,2) NOT NULL DEFAULT 0,
+    preco            NUMERIC(10,2) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE reserva (
+    id_reserva     SERIAL PRIMARY KEY,
+    data           DATE NOT NULL,
+    quant_pessoas  INTEGER NOT NULL,
+    horas_ini      TIME NOT NULL,
+    horas_final    TIME NOT NULL,
+    id_pessoa      INTEGER NOT NULL REFERENCES pessoa(id),
+    id_local       INTEGER NOT NULL REFERENCES local(id_local)
+);
+
+CREATE TABLE convidados (
+    id_convidado  SERIAL PRIMARY KEY,
+    cpf_rg        VARCHAR(20) NOT NULL,
+    nome          VARCHAR(100) NOT NULL,
+    id_reserva    INTEGER NOT NULL REFERENCES reserva(id_reserva) ON DELETE CASCADE
 );
