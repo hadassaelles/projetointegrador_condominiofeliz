@@ -6,6 +6,14 @@ from django.utils import timezone
 from encomendas.models import Encomenda
 from reservas.models import Reserva
 from mensagens.models import Noticia, Mensagem
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
+from .forms import CadastroMoradorForm
+from .models import Morador
+import secrets
+
+User = get_user_model()
 
 def redirecionar_apos_login(request):
     user = request.user
@@ -92,3 +100,43 @@ def home_funcionario(request):
         'proxima_reserva': reservas_futuras.first(),
         'novos_comunicados': Noticia.objects.filter(criado_em__gte=sete_dias).count(),
     })
+
+@user_passes_test(is_sindico)
+def cadastro(request):
+    if request.method == "POST":
+        form = CadastroMoradorForm(request.POST)
+        if form.is_valid():
+            d = form.cleaned_data
+            senha_temporaria = secrets.token_urlsafe(8)
+            try:
+                with transaction.atomic():
+                    user = User.objects.create_user(
+                        username=d["email"],
+                        email=d["email"],
+                        password=senha_temporaria,  # o Django salva com hash seguro
+                        first_name=d["nome"],
+                        last_name=d["sobrenome"],
+                    )
+                    # Morador herda de Pessoa: cria as duas linhas de uma vez
+                    Morador.objects.create(
+                        user=user,
+                        nome=d["nome"],
+                        sobrenome=d["sobrenome"],
+                        cpf=d["cpf"],
+                        email=d["email"],
+                        apartamento=d["apartamento_obj"],
+                        data_entrada=d["data_entrada"],
+                    )
+            except IntegrityError:
+                form.add_error(None, "Não foi possível cadastrar: e-mail ou CPF já existe.")
+            else:
+                messages.success(
+                    request,
+                    f"Morador cadastrado! Login: {d['email']} | "
+                    f"Senha temporária: {senha_temporaria} (anote e repasse ao morador).",
+                )
+                return redirect("cadastro")
+    else:
+        form = CadastroMoradorForm()
+ 
+    return render(request, "pessoas/cadastro.html", {"form": form})
