@@ -73,32 +73,7 @@
         {% endif %}
       </header>
 
-      {% for m in messages %}<p class="alerta">{{ m }}</p>{% endfor %}
-
-      <!-- Cards de Áreas Comuns -->
-      <section class="cards area-cards">
-        {% for a in areas %}
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">{{ a.nome }}</span>
-            {% if a.chave == 'salao' %}
-              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {% elif a.chave == 'churrasqueira' %}
-              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {% elif a.chave == 'academia' %}
-              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M6.5 6.5h11M6.5 17.5h11M4 9.5v5M20 9.5v5M8 4.5v15M16 4.5v15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {% elif a.chave == 'piscina' %}
-              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><path d="M2 12c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2M2 17c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {% elif a.chave == 'quadra' %}
-              <svg viewBox="0 0 24 24" fill="none" class="icon-muted"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.7"/></svg>
-            {% endif %}
-          </div>
-          <span class="card-value dark">{{ a.capacidade }}</span>
-          <span class="card-sub muted">Capacidade máxima</span>
-        </div>
-        {% endfor %}
-      </section>
-
+      {% for m in messages %}<p class="alerta">{{ m }}</p>{% endfor %} 
       <!-- Tabela de Agenda -->
       <section class="table-panel">
         <div class="table-panel-header">
