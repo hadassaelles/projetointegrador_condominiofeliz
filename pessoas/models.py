@@ -28,7 +28,8 @@ class Morador(Pessoa):
         on_delete=models.CASCADE,
         related_name='moradores',
     )
-
+    data_entrada = models.DateField(null=True, blank=True)
+    
     def __str__(self):
         return f"{self.nome} (Morador - Apto {self.apartamento_id})"
 

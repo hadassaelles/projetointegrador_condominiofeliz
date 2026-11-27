@@ -86,9 +86,9 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT"),
-        "OPTIONS": {
-            "sslmode": "require",
-        },
+        "OPTIONS": {"sslmode": "require",},
+        "CONN_MAX_AGE": 600,
+        "CONN_HEALTH_CHECKS": True,
     }
 }
 
@@ -145,3 +145,4 @@ LOGOUT_REDIRECT_URL = 'login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+VALIDAR_CPF = False

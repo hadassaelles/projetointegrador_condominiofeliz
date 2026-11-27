@@ -1,5 +1,6 @@
 import re
 
+from django.conf import settings
 from django import forms
 from django.contrib.auth import get_user_model
 
@@ -38,13 +39,10 @@ def validar_cpf(cpf):
     return resto == int(cpf[10])
 
 
-def buscar_apartamento(bloco, numero):
-    """
-    ATENÇÃO: ajuste os nomes dos campos ('bloco' e 'numero') conforme o
-    model Apartamento do seu projeto (apartamentos/models.py).
-    """
+def buscar_apartamento(numero):
+    """Procura o apartamento pelo número (o model Apartamento não tem bloco)."""
     try:
-        return Apartamento.objects.filter(bloco__iexact=bloco, numero=numero).first()
+        return Apartamento.objects.filter(numero=numero).first()
     except (ValueError, TypeError):
         return None
 
@@ -54,7 +52,6 @@ class CadastroMoradorForm(forms.Form):
     sobrenome = forms.CharField(max_length=100)
     cpf = forms.CharField(max_length=14)
     email = forms.EmailField()
-    bloco = forms.CharField(max_length=20)
     apartamento = forms.CharField(max_length=10)
     data_entrada = forms.DateField()
 
@@ -72,7 +69,11 @@ class CadastroMoradorForm(forms.Form):
 
     def clean_cpf(self):
         cpf = limpar_cpf(self.cleaned_data["cpf"])
-        if not validar_cpf(cpf):
+        if not cpf:
+            raise forms.ValidationError("Informe o CPF.")
+        if len(cpf) > 11:
+            raise forms.ValidationError("O CPF deve ter no máximo 11 dígitos.")
+        if getattr(settings, "VALIDAR_CPF", True) and not validar_cpf(cpf):
             raise forms.ValidationError("CPF inválido. Confira os números digitados.")
         if Pessoa.objects.filter(cpf=cpf).exists():
             raise forms.ValidationError("Este CPF já está cadastrado!")
@@ -93,20 +94,16 @@ class CadastroMoradorForm(forms.Form):
             raise forms.ValidationError(f"{rotulo} contém caracteres inválidos.")
         return valor
 
-    def clean_bloco(self):
-        return self._unidade("bloco", "Bloco")
-
     def clean_apartamento(self):
         return self._unidade("apartamento", "Apartamento")
 
     def clean(self):
         cleaned = super().clean()
-        bloco = cleaned.get("bloco")
         numero = cleaned.get("apartamento")
-        if bloco and numero:
-            apto = buscar_apartamento(bloco, numero)
+        if numero:
+            apto = buscar_apartamento(numero)
             if apto is None:
-                self.add_error("apartamento", "Apartamento não encontrado neste bloco.")
+                self.add_error("apartamento", "Apartamento não encontrado.")
             else:
                 cleaned["apartamento_obj"] = apto
         return cleaned
